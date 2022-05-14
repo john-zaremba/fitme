@@ -4,7 +4,7 @@
 
 A web app that allows users to easily log and track their nutrition using simple search queries. 
 
-##Technologies 
+## Technologies 
 
 * React.js 
 * Express.js
