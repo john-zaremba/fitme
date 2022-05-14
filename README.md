@@ -1,6 +1,6 @@
 # Fitness App
 
-##Description  
+## Description  
 
 A web app that allows users to easily log and track their nutrition using simple search queries. 
 
@@ -11,6 +11,6 @@ A web app that allows users to easily log and track their nutrition using simple
 * Knex.js 
 * Objection.js
 
-##Author  
+## Author  
 
 John Zaremba
