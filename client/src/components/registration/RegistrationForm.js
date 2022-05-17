@@ -1,88 +1,96 @@
-import React, { useState } from "react";
-import FormError from "../layout/FormError";
-import config from "../../config";
+import React, { useState } from "react"
+import FormError from "../layout/FormError"
+import config from "../../config"
 
 const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
     email: "",
     password: "",
-    passwordConfirmation: "",
-  });
+    passwordConfirmation: ""
+  })
 
   const [errors, setErrors] = useState({});
 
-  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false)
 
   const validateInput = (payload) => {
-    setErrors({});
-    const { email, password, passwordConfirmation } = payload;
-    const emailRegexp = config.validation.email.regexp;
-    let newErrors = {};
+    setErrors({})
+    const { email, password, passwordConfirmation } = payload
+    const emailRegexp = config.validation.email.regexp.emailRegex
+    let newErrors = {}
+    let isValid = true
+
     if (!email.match(emailRegexp)) {
       newErrors = {
         ...newErrors,
-        email: "is invalid",
-      };
+        email: "is invalid"
+      }
+      isValid = false
     }
 
     if (password.trim() == "") {
       newErrors = {
         ...newErrors,
-        password: "is required",
-      };
+        password: "is required"
+      }
+      isValid = false
     }
 
     if (passwordConfirmation.trim() === "") {
       newErrors = {
         ...newErrors,
-        passwordConfirmation: "is required",
-      };
+        passwordConfirmation: "is required"
+      }
+      isValid = false
     } else {
       if (passwordConfirmation !== password) {
         newErrors = {
           ...newErrors,
-          passwordConfirmation: "does not match password",
-        };
+          passwordConfirmation: "does not match password"
+        }
+        isValid = false
       }
     }
 
-    setErrors(newErrors);
-  };
+    setErrors(newErrors)
+    return isValid
+  }
 
   const onSubmit = async (event) => {
-    event.preventDefault();
-    validateInput(userPayload);
+    event.preventDefault()
+    const isValid = validateInput(userPayload)
+
     try {
-      if (Object.keys(errors).length === 0) {
+      if (isValid) {
         const response = await fetch("/api/v1/users", {
           method: "post",
           body: JSON.stringify(userPayload),
           headers: new Headers({
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           }),
-        });
+        })
         if (!response.ok) {
-          const errorMessage = `${response.status} (${response.statusText})`;
-          const error = new Error(errorMessage);
-          throw error;
+          const errorMessage = `${response.status} (${response.statusText})`
+          const error = new Error(errorMessage)
+          throw error
         }
-        const userData = await response.json();
-        setShouldRedirect(true);
+        const userData = await response.json()
+        setShouldRedirect(true)
       }
     } catch (err) {
-      console.error(`Error in fetch: ${err.message}`);
+      console.error(`Error in fetch: ${err.message}`)
     }
-  };
+  }
 
   const onInputChange = (event) => {
     setUserPayload({
       ...userPayload,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  };
+      [event.currentTarget.name]: event.currentTarget.value
+    })
+  }
 
   if (shouldRedirect) {
-    location.href = "/";
+    location.href = "/"
   }
 
   return (
@@ -125,7 +133,7 @@ const RegistrationForm = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default RegistrationForm;
+export default RegistrationForm

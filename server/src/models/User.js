@@ -29,17 +29,17 @@ class User extends uniqueFunc(Model) {
       required: ["email"],
 
       properties: {
-        email: { type: "string", format: "email" },
-        cryptedPassword: { type: "string" },
-      },
-    };
+        email: { type: "string", pattern: "^\\S+@\\S+\\.\\S+$" },
+        cryptedPassword: { type: "string" }
+      }
+    }
   }
 
   $formatJson(json) {
-    const serializedJson = super.$formatJson(json);
+    const serializedJson = super.$formatJson(json)
 
     if (serializedJson.cryptedPassword) {
-      delete serializedJson.cryptedPassword;
+      delete serializedJson.cryptedPassword
     }
 
     return serializedJson;

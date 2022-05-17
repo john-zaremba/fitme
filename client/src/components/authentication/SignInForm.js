@@ -1,39 +1,45 @@
-import React, { useState } from "react";
-import config from "../../config";
-import FormError from "../layout/FormError";
+import React, { useState } from "react"
+import config from "../../config"
+import FormError from "../layout/FormError"
 
 const SignInForm = () => {
-  const [userPayload, setUserPayload] = useState({ email: "", password: "" });
-  const [shouldRedirect, setShouldRedirect] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [userPayload, setUserPayload] = useState({ email: "", password: "" })
+  const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [errors, setErrors] = useState({})
 
   const validateInput = (payload) => {
-    setErrors({});
-    const { email, password } = payload;
-    const emailRegexp = config.validation.email.regexp;
-    let newErrors = {};
+    setErrors({})
+    const { email, password } = payload
+    const emailRegexp = config.validation.email.regexp.emailRegex
+    let newErrors = {}
+    let isValid = true
+
     if (!email.match(emailRegexp)) {
       newErrors = {
         ...newErrors,
         email: "is invalid",
-      };
+      }
+      isValid = false
     }
 
     if (password.trim() === "") {
       newErrors = {
         ...newErrors,
         password: "is required",
-      };
+      }
+      isValid = false
     }
 
-    setErrors(newErrors);
-  };
+    setErrors(newErrors)
+    return isValid
+  }
 
   const onSubmit = async (event) => {
     event.preventDefault()
-    validateInput(userPayload)
+    const isValid = validateInput(userPayload)
+   
     try {
-      if (Object.keys(errors).length === 0) {
+      if (isValid) {
         const response = await fetch("/api/v1/user-sessions", {
           method: "post",
           body: JSON.stringify(userPayload),
@@ -58,11 +64,11 @@ const SignInForm = () => {
     setUserPayload({
       ...userPayload,
       [event.currentTarget.name]: event.currentTarget.value,
-    });
-  };
+    })
+  }
 
   if (shouldRedirect) {
-    location.href = "/";
+    location.href = "/"
   }
 
   return (
@@ -93,7 +99,7 @@ const SignInForm = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignInForm;
+export default SignInForm
