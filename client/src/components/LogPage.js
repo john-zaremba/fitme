@@ -36,7 +36,7 @@ const LogPage = (props) => {
       <div className="grid-y">
         <h1>My Nutrition Log</h1>
         <div className="callout">
-          <div className="cell small-5">
+          <div className="cell">
             <div className="callout grid-x">
               <p className="cell small-2">name</p>
               <p className="cell small-2">quantity</p>
@@ -46,7 +46,7 @@ const LogPage = (props) => {
               <p className="cell small-2">carbs</p>
             </div>
           </div>
-          <div className="cell small-5">
+          <div className="cell">
             {logEntriesList}
           </div>
         </div>
