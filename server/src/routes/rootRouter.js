@@ -7,7 +7,7 @@ const rootRouter = new express.Router()
 
 rootRouter.use("/api/v1/user-sessions", userSessionsRouter)
 rootRouter.use("/api/v1/users", usersRouter)
-rootRouter.use("/api/v1/log", logsRouter)
+rootRouter.use("/api/v1/logs", logsRouter)
 
 rootRouter.use("/", clientRouter)
 
