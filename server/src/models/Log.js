@@ -43,7 +43,7 @@ class Log extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["date","userId"],
+      required: ["date", "userId"],
       properties: {
         date: { type: "string" },
         userId: { type: ["integer", "string"] }

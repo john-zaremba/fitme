@@ -9,6 +9,10 @@ rootRouter.use("/api/v1/user-sessions", userSessionsRouter)
 rootRouter.use("/api/v1/users", usersRouter)
 rootRouter.use("/api/v1/logs", logsRouter)
 
+rootRouter.get("/", (req, res) => {
+  res.redirect("/logs/1")
+})
+
 rootRouter.use("/", clientRouter)
 
 export default rootRouter
