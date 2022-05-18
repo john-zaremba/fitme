@@ -1,16 +1,15 @@
 import express from "express"
-import { Consumable } from "../../../models/index.js"
-import ConsumableSerializer from "../../../serializers/ConsumableSerializer.js"
+import { Consumable, Log } from "../../../models/index.js"
+import LogSerializer from "../../../serializers/LogSerializer.js"
 
 const logsRouter = new express.Router()
 
-logsRouter.get("/", async (req, res) => {
+logsRouter.get("/:id", async (req, res) => {
   try {
-    const logEntries = await Consumable.query()
-    const serializedLogEntries = logEntries.map((entry) => {
-      return ConsumableSerializer.getSummary(entry)
-    })
-    return res.status(200).json({ logEntries: serializedLogEntries })
+    const { id } = req.params
+    const log = await Log.query().findById(id)
+    const serializedLog = await LogSerializer.getDetail(log)
+    return res.status(200).json({ log: serializedLog })
   } catch (error) {
     return res.status(500).json({ errors: error })
   }

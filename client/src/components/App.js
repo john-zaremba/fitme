@@ -33,7 +33,7 @@ const App = (props) => {
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <Route exact path="/log" component={LogPage} />
+        <Route exact path="/logs/:id" component={LogPage} />
       </Switch>
     </Router>
   )

@@ -2,17 +2,22 @@ import React, { useState, useEffect } from "react"
 import LogEntryTile from "./LogEntryTile"
 
 const LogPage = (props) => {
-  const [logEntries, setLogEntries] = useState([])
+  const [log, setLog] = useState({
+    userId: null,
+    date: "",
+    entries: []
+  })
+  const logId = props.match.params.id
 
   const getLogEntries = async () => {
     try {
-      const response = await fetch("/api/v1/log")
+      const response = await fetch(`/api/v1/logs/${logId}`)
       if (!response.ok) {
         const error = new Error(`Error in fetch: ${response.status} (${response.statusText})`)
         throw error
       }
       const responseBody = await response.json()
-      setLogEntries(responseBody.logEntries)
+      setLog(responseBody.log)
     } catch (error) {
       console.error(error.message)
     }
@@ -22,7 +27,7 @@ const LogPage = (props) => {
     getLogEntries()
   }, [])
 
-  const logEntriesList = logEntries.map((entry) => {
+  const logEntriesList = log.entries.map((entry) => {
     return (
       <LogEntryTile 
         key={entry.id}
@@ -33,24 +38,22 @@ const LogPage = (props) => {
 
   return (
     <div className="grid-container">
-      <div className="grid-y">
-        <h1>My Nutrition Log</h1>
-        <div className="callout">
-          <div className="cell">
-            <div className="callout grid-x">
-              <p className="cell small-2">name</p>
-              <p className="cell small-2">quantity</p>
-              <p className="cell small-2">calories</p>
-              <p className="cell small-2">fat</p>
-              <p className="cell small-2">protein</p>
-              <p className="cell small-2">carbs</p>
-            </div>
-          </div>
-          <div className="cell">
-            {logEntriesList}
-          </div>
-        </div>
-      </div>
+      <h3>Nutrition Log</h3>
+      <table className="hover">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Calories</th>
+            <th>Fat</th>
+            <th>Protein</th>
+            <th>Carbs</th>
+          </tr>
+        </thead>
+        <tbody>
+          {logEntriesList}
+        </tbody>
+      </table>
     </div>
   )
 }

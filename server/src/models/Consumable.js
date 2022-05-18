@@ -5,6 +5,33 @@ class Consumable extends Model {
     return "consumables"
   }
 
+  static get relationMappings() {
+    const { Log, LogEntry } = require("./index.js")
+
+    return {
+      logEntries: {
+        relation: Model.HasManyRelation,
+        modelClass: LogEntry,
+        join: {
+          from: "consumables.id",
+          to: "longEntries.consumablesId"
+        }
+      },
+      logs: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Log,
+        join: {
+          from: "consumables.id",
+          through: {
+            from: "logEntries.consumableId",
+            to: "longEntries.logId"
+          },
+          to: "logs.id"
+        }
+      }
+    }
+  }
+
   static get jsonSchema() {
     return {
       type: "object",
