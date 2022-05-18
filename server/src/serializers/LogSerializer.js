@@ -3,7 +3,7 @@ import ConsumableSerializer from "./ConsumableSerializer.js"
 class LogSerializer {
   static async getDetail(log) {
     try {
-      const allowedAttributes = ["id", "key", "userId", "date"]
+      const allowedAttributes = ["id", "userId", "date"]
       let serializedLog = {}
   
       for (const attribute of allowedAttributes) {
