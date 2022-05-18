@@ -8,7 +8,6 @@ const LogShowPage = (props) => {
     date: "",
     entries: []
   })
-
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const { id } = useParams()
 

@@ -1,5 +1,5 @@
 import express from "express"
-import { Consumable, Log } from "../../../models/index.js"
+import { Log } from "../../../models/index.js"
 import LogSerializer from "../../../serializers/LogSerializer.js"
 import User from "../../../models/User.js"
 
@@ -14,7 +14,6 @@ logsRouter.get("/", async (req, res) => {
     const serializedUserLogs = userLogs.map((log) => {
       return LogSerializer.getSummary(log)
     })
-
     return res.status(200).json({ logs: serializedUserLogs }) 
   } catch (error) {
     return res.status(500).json({ errors: error })
@@ -29,7 +28,6 @@ logsRouter.get("/:id", async (req, res) => {
     const log = await Log.query().findById(id)
     if (userId === log.userId) {
       const serializedLog = await LogSerializer.getDetail(log)
-  
       return res.status(200).json({ log: serializedLog })
     } else {
       return res.status(401).json({ errors: "UNAUTHORIZED REQUEST" })
