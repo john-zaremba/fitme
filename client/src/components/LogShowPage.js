@@ -47,27 +47,26 @@ const LogShowPage = (props) => {
     location.href = "/logs"
   }
   
-    return (
-      <div className="grid-container">
-        <h3>Nutrition Log: {log.date}</h3>
-        <table className="hover">
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>Calories</th>
-              <th>Fat</th>
-              <th>Protein</th>
-              <th>Carbs</th>
-            </tr>
-          </thead>
-          <tbody>
-            {logEntriesList}
-          </tbody>
-        </table>
-      </div>
-    )
-  
+  return (
+    <div className="grid-container">
+      <h3>Nutrition Log: {log.date}</h3>
+      <table className="hover">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Calories</th>
+            <th>Fat</th>
+            <th>Protein</th>
+            <th>Carbs</th>
+          </tr>
+        </thead>
+        <tbody>
+          {logEntriesList}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 export default LogShowPage
