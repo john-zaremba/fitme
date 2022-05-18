@@ -3,13 +3,35 @@ import { Log, Consumable, User } from "../../models/index.js"
 class LogSeeder {
   static async seed() {
     const hello = await User.query().findOne({ email: "hello@email.com" })
-    const currentDate = new Date()
-    const dateString = currentDate.toLocaleDateString()
 
     const logsData = [
       {
         userId: hello.id,
-        date: dateString
+        date: "1/10/21"
+      },
+      {
+        userId: hello.id,
+        date: "2/10/21"
+      },
+      {
+        userId: hello.id,
+        date: "5/10/21"
+      },
+      {
+        userId: hello.id,
+        date: "7/10/21"
+      },
+      {
+        userId: hello.id,
+        date: "2/12/22"
+      },
+      {
+        userId: hello.id,
+        date: "3/10/22"
+      },
+      {
+        userId: hello.id,
+        date: "4/12/22"
       }
     ]
 
@@ -57,10 +79,12 @@ class LogSeeder {
         const log = await Log.query().insert(logObject)
 
         for (const consumableObject of consumablesData) {
-          const currentConsumable = await Consumable.query().findOne({ name: consumableObject.name })
-          if (!currentConsumable) {
+          const currentConsumable = await log
+            .$relatedQuery("consumables")
+            .where("name", "=", `${consumableObject.name}`)
+          if (currentConsumable.length === 0) {
             await log.$relatedQuery("consumables").insert(consumableObject)
-          }
+          }  
         }
       }
     }
