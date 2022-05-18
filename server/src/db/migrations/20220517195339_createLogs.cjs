@@ -8,13 +8,18 @@
 exports.up = async (knex) => {
   return knex.schema.createTable("logs", (table) => {
     table.bigIncrements("id")
-    table.string("key").notNullable()
     table.string("date").notNullable()
-    table.bigInteger("userId")
-    table.timestamp("createdAt")
+    table
+      .bigInteger("userId")
+      .notNullable()
+      .unsigned()
+      .references("users.id")
+    table
+      .timestamp("createdAt")
       .notNullable()
       .defaultTo(knex.fn.now())
-    table.timestamp("updatedAt")
+    table
+      .timestamp("updatedAt")
       .notNullable()
       .defaultTo(knex.fn.now())
   })

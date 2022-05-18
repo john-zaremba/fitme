@@ -3,9 +3,8 @@ import LogEntryTile from "./LogEntryTile"
 
 const LogPage = (props) => {
   const [log, setLog] = useState({
-    key: "",
     userId: null,
-    date: {},
+    date: "",
     entries: []
   })
   const logId = props.match.params.id
@@ -38,21 +37,24 @@ const LogPage = (props) => {
   })
 
   return (
-    <table className="hover">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Quantity</th>
-          <th>Calories</th>
-          <th>Fat</th>
-          <th>Protein</th>
-          <th>Carbs</th>
-        </tr>
-      </thead>
-      <tbody>
-        {logEntriesList}
-      </tbody>
-    </table>
+    <div className="grid-container">
+      <h3>Nutrition Log</h3>
+      <table className="hover">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Calories</th>
+            <th>Fat</th>
+            <th>Protein</th>
+            <th>Carbs</th>
+          </tr>
+        </thead>
+        <tbody>
+          {logEntriesList}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
