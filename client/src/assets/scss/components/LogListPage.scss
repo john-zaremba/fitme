@@ -1,0 +1,15 @@
+.log-tile {
+  @extend .callout;
+  @extend .cell;
+  @extend .small-4;
+  @extend .text-center;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgb(229, 229, 229);
+}
+
+.log-list {
+  @extend .callout;
+  @extend .grid-x;
+  @extend .grid-margin-x;
+  border-radius: 10px;
+}

@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
 import LogEntryTile from "./LogEntryTile"
 
-const LogPage = (props) => {
+const LogShowPage = (props) => {
   const [log, setLog] = useState({
     userId: null,
     date: "",
     entries: []
   })
-  const logId = props.match.params.id
+  const [shouldRedirect, setShouldRedirect] = useState(false)
+  const { id } = useParams()
 
   const getLogEntries = async () => {
     try {
-      const response = await fetch(`/api/v1/logs/${logId}`)
+      const response = await fetch(`/api/v1/logs/${id}`)
       if (!response.ok) {
-        const error = new Error(`Error in fetch: ${response.status} (${response.statusText})`)
-        throw error
+        if (response.status === 401) {
+          setShouldRedirect(true)
+        } else {
+          const error = new Error(`Error in fetch: ${response.status} (${response.statusText})`)
+          throw error
+        }
       }
       const responseBody = await response.json()
       setLog(responseBody.log)
@@ -36,9 +42,13 @@ const LogPage = (props) => {
     )
   })
 
+  if (shouldRedirect) {
+    location.href = "/logs"
+  }
+  
   return (
     <div className="grid-container">
-      <h3>Nutrition Log</h3>
+      <h3>Nutrition Log: {log.date}</h3>
       <table className="hover">
         <thead>
           <tr>
@@ -58,4 +68,4 @@ const LogPage = (props) => {
   )
 }
 
-export default LogPage
+export default LogShowPage
