@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import LogTile from "./LogTile"
 
 const LogListPage = (props) => {
   const [logs, setLogs] = useState([])
@@ -22,23 +22,20 @@ const LogListPage = (props) => {
     getLogs()
   }, [])
 
-  const logsList = logs.map(log => {
+  const logsList = logs.map((log) => {
     return (
-      <div className="log-tile">
-        <h5>
-          <Link to={`logs/${log.id}`}>
-            {log.date}
-          </Link>
-        </h5>
-      </div>
+      <LogTile 
+        key={log.id}
+        log={log}
+      />
     )
   })
 
   return (
     <div className="grid-container">
-      <h1>
+      <h2>
         My Logs
-      </h1>
+      </h2>
       <div className="log-list">
         {logsList}
       </div>
