@@ -37,4 +37,21 @@ logsRouter.get("/:id", async (req, res) => {
   }
 })
 
+logsRouter.get("/natural", async (req, res) => {
+  const logEntry = "1 banana"
+  try {
+    const naturalResponse = await nutritionIxClient.naturalSearch(logEntry)
+    const naturalData = JSON.parse(naturalResponse)
+    return res
+      .set({ "Content-Type": "application/json" })
+      .status(200)
+      .json(naturalData)
+  } catch (error) {
+    console.log(error)
+    return res
+      .status(500)
+      .json({ errors: error })
+  }
+})
+
 export default logsRouter
