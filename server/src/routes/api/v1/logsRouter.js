@@ -1,9 +1,13 @@
 import express from "express"
+import NutritionIxClient from "../../../apiClient/nutritionIxClient.js"
 import { Log } from "../../../models/index.js"
 import LogSerializer from "../../../serializers/LogSerializer.js"
 import User from "../../../models/User.js"
+import logEntriesRouter from "./logEntriesRouter.js"
 
 const logsRouter = new express.Router()
+
+logsRouter.use("/:logId/entries", logEntriesRouter)
 
 logsRouter.get("/", async (req, res) => {
   const userId = req.user.id
@@ -37,21 +41,5 @@ logsRouter.get("/:id", async (req, res) => {
   }
 })
 
-logsRouter.get("/natural", async (req, res) => {
-  const logEntry = "1 banana"
-  try {
-    const naturalResponse = await nutritionIxClient.naturalSearch(logEntry)
-    const naturalData = JSON.parse(naturalResponse)
-    return res
-      .set({ "Content-Type": "application/json" })
-      .status(200)
-      .json(naturalData)
-  } catch (error) {
-    console.log(error)
-    return res
-      .status(500)
-      .json({ errors: error })
-  }
-})
 
 export default logsRouter

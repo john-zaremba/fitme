@@ -1,25 +1,23 @@
 import got from "got"
-import dotenv from "dotenv"
-dotenv.config()
-
+import "dotenv/config"
 const appId = process.env.NUTRITIONIX_APPLICATION_ID
 const apiKey = process.env.NUTRITIONIX_API_KEY
-const remoteUserId = process.env.NUTRITIONIX_REMOTE_USER_ID
 
-class NutritionIxClient {
-  static async naturalSearch(queryString) {
+export class NutritionIxClient {
+  static async naturalSearch(query, appId, apiKey) {
     try {
+      console.log("appid", appId)
       const url = `https://trackapi.nutritionix.com/v2/natural/nutrients`
       const response = await got.post({
         url: url,
         headers: {
+          "Content-Type": "application/json",
           "x-app-id": appId,
           "x-app-key": apiKey,
-          "x-remote-user-id": remoteUserId,
-          "Content-Type": "application/json"
+          "x-remote-user-id": "0"
         },
         json: {
-          "query": queryString
+          "query": query
         }
       })
       const responseBody = response.body
@@ -29,3 +27,5 @@ class NutritionIxClient {
     }
   }
 }
+
+export default NutritionIxClient
