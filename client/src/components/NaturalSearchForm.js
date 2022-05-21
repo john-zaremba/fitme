@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
 const NaturalSearchForm = (props) => {
-  const { postLogEntry } = props
+  const { postLogEntry, date } = props
   const [newEntry, setNewEntry] = useState({ entryQuery: "" })
 
   const handleInputChange = (event) => {
@@ -22,11 +22,11 @@ const NaturalSearchForm = (props) => {
   }
 
   return (
-    <div className="callout">
-      <h4>Easy Add</h4>
+    <div className="form">
+      <h4>Nutrition Log: {date}</h4>
       <form onSubmit={handleSubmit}>
         <label>
-          Entry:
+          Easy Add:
           <input
             type="text"
             name="entryQuery"
@@ -35,8 +35,8 @@ const NaturalSearchForm = (props) => {
           >
           </input>
         </label>
-        <div className="button-group">
-          <input className="button" type="submit" value="submit" />
+        <div>
+          <input className="my-button" type="submit" value="Submit" />
         </div>
       </form>
     </div>

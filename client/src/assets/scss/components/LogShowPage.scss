@@ -1,0 +1,13 @@
+.form {
+  @extend .callout;
+  margin-top: 16px;
+  max-width: 500px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgb(220, 220, 220);
+}
+
+.entry-table {
+  @extend .hover;
+  box-shadow: 0 0 5px rgb(208, 208, 208);
+  border-radius: 5px;
+}

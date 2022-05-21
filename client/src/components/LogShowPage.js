@@ -70,7 +70,7 @@ const LogShowPage = (props) => {
     return (
       <LogEntryTile 
         key={entry.id}
-        entry={entry} 
+        entry={entry}
       />
     )
   })
@@ -81,11 +81,11 @@ const LogShowPage = (props) => {
   
   return (
     <div className="grid-container">
-      <h3>Nutrition Log: {log.date}</h3>
       <NaturalSearchForm 
         postLogEntry={postLogEntry}
+        date={log.date}
       />
-      <table className="hover">
+      <table className="entry-table">
         <thead>
           <tr>
             <th>Description</th>

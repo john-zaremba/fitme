@@ -33,11 +33,13 @@ const LogListPage = (props) => {
 
   return (
     <div className="grid-container">
-      <h2>
-        My Logs
-      </h2>
-      <div className="log-list">
-        {logsList}
+      <div className="log-list-container">
+        <h3>
+          My Logs
+        </h3>
+        <div className="log-list">
+          {logsList}
+        </div>
       </div>
     </div>
   )

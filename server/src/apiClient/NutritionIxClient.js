@@ -1,12 +1,13 @@
+
 import got from "got"
 import "dotenv/config"
+
 const appId = process.env.NUTRITIONIX_APPLICATION_ID
 const apiKey = process.env.NUTRITIONIX_API_KEY
 
-export class NutritionIxClient {
-  static async naturalSearch(query, appId, apiKey) {
+class NutritionIxClient {
+  static async naturalSearch(query) {
     try {
-      console.log("appid", appId)
       const url = `https://trackapi.nutritionix.com/v2/natural/nutrients`
       const response = await got.post({
         url: url,

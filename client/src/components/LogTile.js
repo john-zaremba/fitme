@@ -5,11 +5,22 @@ const LogTile = (props) => {
   const { id, date } = props.log
   return (
     <div className="log-tile">
-      <h5>
-        <Link to={`logs/${id}`}>
-          {date}
-        </Link>
-      </h5>
+      <Link to={`logs/${id}`}>
+        <table className="hover">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Total Calories</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{date}</td>
+              <td>2,700</td>
+            </tr>
+          </tbody>
+        </table>
+      </Link>
     </div>
   )
 }
