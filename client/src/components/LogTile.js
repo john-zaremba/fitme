@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 const LogTile = (props) => {
-  const { id, date } = props.log
+  const { id, date, totalCalories } = props.log
   return (
     <div className="log-tile">
       <Link to={`logs/${id}`}>
@@ -16,7 +16,7 @@ const LogTile = (props) => {
           <tbody>
             <tr>
               <td>{date}</td>
-              <td>2,700</td>
+              <td>{totalCalories}</td>
             </tr>
           </tbody>
         </table>

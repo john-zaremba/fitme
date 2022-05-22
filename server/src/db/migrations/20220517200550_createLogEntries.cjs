@@ -8,6 +8,7 @@
 exports.up = async (knex) => {
   return knex.schema.createTable("logEntries", (table) => {
     table.bigIncrements("id")
+    table.integer("quantity").notNullable()
     table
       .bigInteger("logId")
       .notNullable()

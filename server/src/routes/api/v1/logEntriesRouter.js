@@ -19,9 +19,9 @@ logEntriesRouter.post("/", async (req, res) => {
     const nutritionIxResponse = await NutritionIxClient.naturalSearch(entryQuery.toString())
     const nutritionData = JSON.parse(nutritionIxResponse)
     const serializedData = LogEntrySerializer.getSummary(nutritionData)
-    const logEntry = await log.$relatedQuery("consumables").insertAndFetch(serializedData)
-    
-    return res.status(201).json({ logEntry })
+    await log.addEntry(serializedData)
+
+    return res.status(201).json({ logEntry: serializedData })
   } catch (error) {
     return res.status(500).json({ errors: error })
   }

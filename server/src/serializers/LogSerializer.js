@@ -1,13 +1,16 @@
 import ConsumableSerializer from "./ConsumableSerializer.js"
+import { LogEntry } from "../models/index.js"
 
 class LogSerializer {
-  static getSummary(log) {
+  static async getSummary(log) {
     const allowedAttributes = ["id", "userId", "date"]
     let serializedLog = {}
 
     for (const attribute of allowedAttributes) {
       serializedLog[attribute] = log[attribute]
     }
+
+    serializedLog.totalCalories = await log.getTotalCalories()
     
     return serializedLog
   }
@@ -23,7 +26,13 @@ class LogSerializer {
       const relatedConsumables = await log.$relatedQuery("consumables")
       const serializedConsumables = await Promise.all(
         relatedConsumables.map(async (consumable) => {
-          return ConsumableSerializer.getSummary(consumable)
+          const logEntry = await LogEntry.query().findOne({ 
+            logId: log.id, 
+            consumableId: consumable.id 
+          })
+          const serializedConsumable = ConsumableSerializer.getSummary(consumable, logEntry.quantity)
+         
+          return serializedConsumable
         })
       )
       serializedLog.entries = serializedConsumables

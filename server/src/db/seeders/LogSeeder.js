@@ -1,4 +1,4 @@
-import { Log, Consumable, User } from "../../models/index.js"
+import { Log, Consumable, LogEntry, User } from "../../models/index.js"
 
 class LogSeeder {
   static async seed() {
@@ -46,7 +46,7 @@ class LogSeeder {
       },
       {
          name: "chicken breast",
-         quantity: 1,
+         quantity: 2,
          calories: 198,
          fat: 4,
          protein: 37,
@@ -62,7 +62,7 @@ class LogSeeder {
       },
       {
          name: "greek yogurt",
-         quantity: 1,
+         quantity: 3,
          calories: 100,
          fat: 19,
          protein: 59,
@@ -75,16 +75,32 @@ class LogSeeder {
         userId: logObject.userId,
         date: logObject.date
       })
+      
       if (!currentLog) {
         const log = await Log.query().insert(logObject)
 
         for (const consumableObject of consumablesData) {
-          const currentConsumable = await log
-            .$relatedQuery("consumables")
-            .where("name", "=", `${consumableObject.name}`)
-          if (currentConsumable.length === 0) {
-            await log.$relatedQuery("consumables").insert(consumableObject)
-          }  
+          const currentConsumable = await Consumable.query().findOne({ name: consumableObject.name })
+          if (!currentConsumable) {
+            const newConsumable = await Consumable.query().insert({
+              name: consumableObject.name,
+              calories: consumableObject.calories,
+              fat: consumableObject.fat,
+              protein: consumableObject.protein,
+              carbs: consumableObject.carbs
+            })
+            await LogEntry.query().insert({
+              logId: log.id,
+              consumableId: newConsumable.id,
+              quantity: consumableObject.quantity
+            })
+          } else {
+            await LogEntry.query().insert({
+              logId: log.id,
+              consumableId: currentConsumable.id,
+              quantity: consumableObject.quantity
+            })
+          }
         }
       }
     }
