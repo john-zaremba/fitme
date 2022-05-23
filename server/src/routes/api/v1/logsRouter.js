@@ -25,6 +25,30 @@ logsRouter.get("/", async (req, res) => {
   }
 })
 
+logsRouter.post("/", async (req, res) => {
+  const userId = req.user.id
+  const date = new Date()
+
+  try {
+    const existingLog = await Log.query().findOne({
+      userId: userId,
+      date: date.toLocaleDateString()
+    })
+
+    if (!existingLog) {
+      const newLog = await Log.query().insertAndFetch({ 
+        date: date.toLocaleDateString(), 
+        userId 
+      })
+      return res.status(201).json({ log: newLog })
+    } else {
+      return res.status(200).json({ log: existingLog })
+    }
+  } catch (error) {
+    return res.status(500).json({ errors: error })
+  }
+})
+
 logsRouter.get("/:id", async (req, res) => {
   const userId = req.user.id
   const { id } = req.params
