@@ -36,6 +36,7 @@ class LogSerializer {
         })
       )
       serializedLog.entries = serializedConsumables
+      
       return serializedLog
     } catch (error) {
       throw error

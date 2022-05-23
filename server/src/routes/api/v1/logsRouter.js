@@ -42,5 +42,4 @@ logsRouter.get("/:id", async (req, res) => {
   }
 })
 
-
 export default logsRouter
