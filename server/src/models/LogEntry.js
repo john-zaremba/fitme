@@ -31,10 +31,11 @@ class LogEntry extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["logId", "consumableId"],
+      required: ["logId", "consumableId", "quantity"],
       properties: {
         logId: { type: ["integer", "string"] },
-        consumableId: { type: ["integer", "string"] }
+        consumableId: { type: ["integer", "string"] },
+        quantity: { type: ["integer", "string"] }
       }
     }
   }

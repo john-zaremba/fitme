@@ -1,0 +1,6 @@
+.my-button {
+  @extend .button;
+  @extend .large;
+  border-radius: 5px;
+  font-weight: bold;
+}

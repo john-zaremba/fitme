@@ -2,6 +2,9 @@
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
 @import "./components/LogListPage.scss";
+@import "./components/LogShowPage.scss";
+@import "./components/Button.scss";
+@import "./components/TopBar.scss";
 // place global css here
 *,
 *::before,

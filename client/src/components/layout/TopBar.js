@@ -8,7 +8,7 @@ const TopBar = ({ user }) => {
       <Link to="/user-sessions/new">Sign In</Link>
     </li>,
     <li key="sign-up">
-      <Link to="/users/new" className="button">
+      <Link to="/users/new" className="my-button">
         Sign Up
       </Link>
     </li>,
@@ -21,12 +21,15 @@ const TopBar = ({ user }) => {
   ];
 
   return (
-    <div className="top-bar">
+    <div className="my-top-bar">
       <div className="top-bar-left">
         <ul className="menu">
-          <li className="menu-text">fitMe</li>
+          <li className="my-menu-text">My Easy Tracker</li>
           <li>
-            <Link to="/">Home</Link>
+            <Link className="menu-link" to="/">Home</Link>
+          </li>
+          <li>
+            <Link className="menu-link" to="/logs">My Logs</Link>
           </li>
         </ul>
       </div>

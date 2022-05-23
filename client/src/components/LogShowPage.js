@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import LogEntryTile from "./LogEntryTile"
+import translateServerErrors from "../services/translateServerErrors"
+import NaturalSearchForm from "./NaturalSearchForm"
 
 const LogShowPage = (props) => {
   const [log, setLog] = useState({
@@ -9,6 +11,7 @@ const LogShowPage = (props) => {
     entries: []
   })
   const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [errors, setErrors] = useState([])
   const { id } = useParams()
 
   const getLogEntries = async () => {
@@ -29,6 +32,39 @@ const LogShowPage = (props) => {
     }
   }
 
+  const postLogEntry = async (formInput) => {
+    try {
+      const response = await fetch(`/api/v1/logs/${id}/entries`, {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(formInput)
+      })
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          const body = await response.json()
+          console.error(body.errors)
+        } else if (response.status === 422) {
+          const body = await response.json()
+          const newErrors = translateServerErrors(body.errors)
+          return setErrors(newErrors)
+        } else {
+          const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
+          throw error
+        }
+      } else {
+        const responseBody = await response.json()
+        const updatedEntries = [...log.entries, responseBody.logEntry]
+        setErrors([])
+        setLog({ ...log, entries: updatedEntries })
+      }
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
   useEffect(() => {
     getLogEntries()
   }, [])
@@ -37,7 +73,7 @@ const LogShowPage = (props) => {
     return (
       <LogEntryTile 
         key={entry.id}
-        entry={entry} 
+        entry={entry}
       />
     )
   })
@@ -48,11 +84,15 @@ const LogShowPage = (props) => {
   
   return (
     <div className="grid-container">
-      <h3>Nutrition Log: {log.date}</h3>
-      <table className="hover">
+      <NaturalSearchForm 
+        postLogEntry={postLogEntry}
+        date={log.date}
+      />
+      <table className="entry-table">
         <thead>
           <tr>
             <th>Description</th>
+            <th>Unit</th>
             <th>Quantity</th>
             <th>Calories</th>
             <th>Fat</th>

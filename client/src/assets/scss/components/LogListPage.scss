@@ -1,15 +1,25 @@
-.log-tile {
+.log-list-container {
   @extend .callout;
-  @extend .cell;
-  @extend .small-4;
-  @extend .text-center;
-  border-radius: 10px;
-  box-shadow: 5px 5px 5px rgb(229, 229, 229);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(222, 222, 222);
+  border: none;
+  padding: 3rem;
 }
 
 .log-list {
-  @extend .callout;
   @extend .grid-x;
   @extend .grid-margin-x;
   border-radius: 10px;
+}
+
+.log-tile {
+  @extend .cell;
+  @extend .small-12;
+  @extend .large-6;
+  border-radius: 10px;
+  font-size: 1.3em;
+}
+
+td {
+  color: black;
 }
