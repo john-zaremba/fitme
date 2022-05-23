@@ -37,6 +37,7 @@ class Consumable extends Model {
       type: "object",
       required: [
         "name",
+        "unit",
         "calories",
         "fat",
         "protein",
@@ -44,6 +45,7 @@ class Consumable extends Model {
       ],
       properties: {
         name: { type: "string" },
+        unit: { type: "string" },
         calories: { type: ["integer", "string"] },
         fat: { type: ["integer", "string"] },
         protein: { type: ["integer", "string"] },

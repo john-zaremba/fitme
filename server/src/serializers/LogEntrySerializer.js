@@ -3,6 +3,7 @@ class LogEntrySerializer {
     const {
       food_name,
       serving_qty,
+      serving_unit,
       nf_calories,
       nf_total_fat,
       nf_protein,
@@ -10,6 +11,7 @@ class LogEntrySerializer {
     } = apiResponse.foods[0]
 
     const name = food_name.toString()
+    const unit = serving_unit.toString()
     const quantity = serving_qty.toString()
     const calories = Math.round(nf_calories).toString()
     const fat = Math.round(nf_total_fat).toString()
@@ -18,6 +20,7 @@ class LogEntrySerializer {
 
     const serializedLogEntry = {
       name,
+      unit,
       quantity,
       calories,
       fat,

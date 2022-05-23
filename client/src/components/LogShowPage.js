@@ -43,7 +43,10 @@ const LogShowPage = (props) => {
       })
 
       if (!response.ok) {
-        if (response.status === 422) {
+        if (response.status === 401) {
+          const body = await response.json()
+          console.error(body.errors)
+        } else if (response.status === 422) {
           const body = await response.json()
           const newErrors = translateServerErrors(body.errors)
           return setErrors(newErrors)
@@ -89,6 +92,7 @@ const LogShowPage = (props) => {
         <thead>
           <tr>
             <th>Description</th>
+            <th>Unit</th>
             <th>Quantity</th>
             <th>Calories</th>
             <th>Fat</th>

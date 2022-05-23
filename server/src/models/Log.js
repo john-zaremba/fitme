@@ -74,29 +74,38 @@ class Log extends Model {
   }
 
   async addEntry(consumable) {
-    const dynamicAttributes = ["calories", "fat", "protein", "carbs"]
-    const standardizedData = { name: consumable.name }
-
-    for (const attribute of dynamicAttributes) {
-      standardizedData[attribute] = Math.round(consumable[attribute] / consumable.quantity)
-    }
-
-    const existingConsumable = await Consumable.query().findOne({ name: consumable.name })
-
-    if (!existingConsumable) {
-      const newConsumable = await Consumable.query().insert(standardizedData)
+    const existingConsumable = await Consumable.query().findOne({ 
+      name: consumable.name,
+      unit: consumable.unit 
+    })
     
+    if (!existingConsumable) {
+      const dynamicAttributes = ["calories", "fat", "protein", "carbs"]
+      const standardizedData = { 
+        name: consumable.name,
+        unit: consumable.unit 
+      }
+  
+      for (const attribute of dynamicAttributes) {
+        standardizedData[attribute] = Math.round(consumable[attribute] / consumable.quantity)
+      }
+
+      const newConsumable = await Consumable.query().insertAndFetch(standardizedData)
       await LogEntry.query().insert({
         logId: this.id,
         consumableId: newConsumable.id,
         quantity: consumable.quantity
       })
+
+      return newConsumable
     } else {
       await LogEntry.query().insert({
         logId: this.id,
         consumableId: existingConsumable.id,
         quantity: consumable.quantity
       })
+
+      return existingConsumable
     }
   }
 }

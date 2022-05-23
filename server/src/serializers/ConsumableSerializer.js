@@ -4,14 +4,16 @@ class ConsumableSerializer {
     const allowedAttributes = [
       "id",
       "name",
+      "unit",
       "calories",
       "fat",
       "protein",
       "carbs"
     ]
+
     let index = 0
     for (const attribute of allowedAttributes) {
-      if (index > 1) {
+      if (index > 2) {
         serializedConsumable[attribute] = consumable[attribute] * quantity
       } else {
         serializedConsumable[attribute] = consumable[attribute]
