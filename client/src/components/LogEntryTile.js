@@ -1,7 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 
 const LogEntryTile = (props) => {
-  const { name, unit, quantity, calories, fat, protein, carbs } = props.entry
+  const { id, name, unit, quantity, calories, fat, protein, carbs } = props.entry
+  const { deleteLogEntry, showDelete } = props
+  let deleteButton
+
+  const handleDelete = () => {
+    deleteLogEntry(id)
+  }
+
+  if (showDelete) {
+    deleteButton = <td className="button alert" onClick={handleDelete}>Delete</td>
+  }
   return (
     <tr>
       <td>{name}</td>
@@ -11,6 +21,7 @@ const LogEntryTile = (props) => {
       <td>{fat}g</td>
       <td>{protein}g</td>
       <td>{carbs}g</td>
+      {deleteButton}
     </tr>
   )
 }

@@ -11,6 +11,7 @@ const LogShowPage = (props) => {
     entries: []
   })
   const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [showDelete, setShowDelete] = useState(false)
   const [errors, setErrors] = useState([])
   const { id } = useParams()
 
@@ -64,6 +65,36 @@ const LogShowPage = (props) => {
       console.error(error.message)
     }
   }
+  
+  const deleteLogEntry = async (entryId) => {
+    try {
+      const response = await fetch(`/api/v1/entries/${entryId}`, {
+        method: "DELETE",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        })
+      })
+
+      if (!response.ok) {
+        const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
+        throw error       
+      }
+
+      const updatedEntries = log.entries.filter((entry) => {
+        return entry.id !== entryId
+      })
+      setLog({
+        ...log,
+        entries: updatedEntries
+      })
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+  const handleClickTable = () => {
+    setShowDelete(!showDelete)
+  }
 
   useEffect(() => {
     getLogEntries()
@@ -74,6 +105,8 @@ const LogShowPage = (props) => {
       <LogEntryTile 
         key={entry.id}
         entry={entry}
+        deleteLogEntry={deleteLogEntry}
+        showDelete={showDelete}
       />
     )
   })
@@ -88,7 +121,7 @@ const LogShowPage = (props) => {
         postLogEntry={postLogEntry}
         date={log.date}
       />
-      <table className="entry-table">
+      <table className="entry-table" onClick={handleClickTable}>
         <thead>
           <tr>
             <th>Description</th>
