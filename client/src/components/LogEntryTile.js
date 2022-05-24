@@ -1,7 +1,9 @@
 import React, { useState } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare, faTrash, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 
 const LogEntryTile = (props) => {
-  const { id, name, unit, quantity, calories, fat, protein, carbs } = props.entry
+  const { id, entryId, name, unit, quantity, calories, fat, protein, carbs } = props.entry
   const { deleteLogEntry, patchLogEntry } = props
   const [editing, setEditing] = useState(false)
   const [newQuantity, setNewQuantity] = useState({ quantity: "" })
@@ -11,7 +13,7 @@ const LogEntryTile = (props) => {
   let buttonCollection
 
   const handleDelete = () => {
-    deleteLogEntry(id)
+    deleteLogEntry(entryId)
   }
   
   const handleInputChange = (event) => {
@@ -24,7 +26,8 @@ const LogEntryTile = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    patchLogEntry(id, newQuantity)
+    patchLogEntry(entryId, newQuantity)
+    setNewQuantity({ quantity: "" })
     setEditing(false)
   }
 
@@ -39,37 +42,32 @@ const LogEntryTile = (props) => {
 
   if (editing) {
     entryQuantity = <form onSubmit={handleSubmit}>
-      <div className="grid-x grid-margin-x">
       <input
-        className="cell small-2"
         type="text"
         name="quantity"
         value={newQuantity.quantity}
         onChange={handleInputChange}
       />
-      <input className="cell small-3 button" type="submit" value="Submit" />
-      
-      </div>
     </form>
   } else {
     entryQuantity = quantity
   }
 
   if (!editing) {
-    leftButton = <div className="my-button secondary" onClick={handleEditClick}>Edit</div>
-    rightButton = <div className="my-button alert" onClick={handleDelete}>Delete</div>
-    buttonCollection = <td className="button-group">{leftButton}{rightButton}</td>
+    leftButton = <FontAwesomeIcon className="my-icon" icon={faPenToSquare} onClick={handleEditClick} />
+    rightButton = <FontAwesomeIcon className="my-icon" icon={faTrash} onClick={handleDelete} />
+    buttonCollection = <td width="5%">{leftButton}{rightButton}</td>
   } else if (editing) {
-    leftButton = <td className="my-button" onClick={handleEditClick}>Submit</td>
-    rightButton = <td className="my-button alert" onClick={handleCancelClick}>Cancel</td>
-    buttonCollection = <td className="button-group">{leftButton}{rightButton}</td>
+    leftButton = <FontAwesomeIcon className="my-icon" icon={faCheck} onClick={handleSubmit} />
+    rightButton = <FontAwesomeIcon className="my-icon"icon={faX} onClick={handleCancelClick} />
+    buttonCollection = <td width="5%">{leftButton}{rightButton}</td>
   } 
 
   return (
     <tr>
       <td>{name}</td>
-      <td>{unit}</td>
-      <td>{entryQuantity}</td>
+      <td width="25%">{unit}</td>
+      <td width="10%">{entryQuantity}</td>
       <td>{calories}</td>
       <td>{fat}g</td>
       <td>{protein}g</td>

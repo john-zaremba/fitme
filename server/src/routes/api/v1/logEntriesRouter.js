@@ -1,7 +1,7 @@
 import express from "express"
 import objection from "objection"
 import { Log } from "../../../models/index.js"
-import NutritionIxClient from "../../../apiClient/nutritionIxClient.js"
+import NutritionIxClient from "../../../apiClient/NutritionIxClient.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import LogEntrySerializer from "../../../serializers/LogEntrySerializer.js"
 import ConsumableSerializer from "../../../serializers/ConsumableSerializer.js"
@@ -22,11 +22,11 @@ logEntriesRouter.post("/", async (req, res) => {
       const nutritionIxResponse = await NutritionIxClient.naturalSearch(entryQuery.toString(), userId)
       const nutritionData = JSON.parse(nutritionIxResponse)
       const serializedData = LogEntrySerializer.getSummary(nutritionData)
-      const addedConsumable = await log.addEntry(serializedData)
-      const serializedConsumable = ConsumableSerializer.getSummary(addedConsumable, serializedData.quantity)
-  
+      const { consumable, newEntry } = await log.addEntry(serializedData)
+      const serializedConsumable = ConsumableSerializer.getSummary(consumable, newEntry.quantity, newEntry.id)
       return res.status(201).json({ logEntry: serializedConsumable })
     } catch (error) {
+      console.log(error)
       return res.status(500).json({ errors: error })
     }
   } else {

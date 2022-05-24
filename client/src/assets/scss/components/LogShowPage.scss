@@ -7,7 +7,14 @@
 }
 
 .entry-table {
-  @extend .hover;
   box-shadow: 0 0 5px rgb(208, 208, 208);
   border-radius: 5px;
+}
+
+.my-icon {
+  margin-left: 8px;
+}
+
+.my-icon:hover {
+  color: rgb(110, 110, 110);
 }

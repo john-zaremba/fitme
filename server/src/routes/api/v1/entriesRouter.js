@@ -22,7 +22,7 @@ entriesRouter.patch("/:id", async (req, res) => {
   try {
     const patchedEntry = await LogEntry.query().patchAndFetchById(id, { quantity })
     const relatedConsumable = await patchedEntry.$relatedQuery("consumable")
-    const serializedConsumable = ConsumableSerializer.getSummary(relatedConsumable, patchedEntry.quantity)
+    const serializedConsumable = ConsumableSerializer.getSummary(relatedConsumable, patchedEntry.quantity, patchedEntry.id)
     
     return res.status(200).json({ entry: serializedConsumable })
   } catch (error) {

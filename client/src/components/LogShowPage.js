@@ -80,7 +80,7 @@ const LogShowPage = (props) => {
       }
 
       const updatedEntries = log.entries.filter((entry) => {
-        return entry.id !== entryId
+        return entry.entryId !== entryId
       })
       setLog({
         ...log,
@@ -110,7 +110,7 @@ const LogShowPage = (props) => {
       const updatedEntries = [...log.entries]
 
       for (let i = 0; i < updatedEntries.length; i++) {
-        if (updatedEntries[i].id === entryId) {
+        if (updatedEntries[i].entryId === entryId) {
           updatedEntries.splice(i, 1, responseBody.entry)
         }
       }
@@ -132,7 +132,7 @@ const LogShowPage = (props) => {
   const logEntriesList = log.entries.map((entry) => {
     return (
       <LogEntryTile 
-        key={entry.id}
+        key={entry.entryId}
         entry={entry}
         deleteLogEntry={deleteLogEntry}
         patchLogEntry={patchLogEntry}
