@@ -1,4 +1,4 @@
-# fitMe
+# My Easy Tracker
 
 ## Description  
 
