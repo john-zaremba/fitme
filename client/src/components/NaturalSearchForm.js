@@ -35,9 +35,7 @@ const NaturalSearchForm = (props) => {
           >
           </input>
         </label>
-        <div>
-          <input className="my-button" type="submit" value="Submit" />
-        </div>
+        <input className="my-button" type="submit" value="Submit" />
       </form>
     </div>
   )

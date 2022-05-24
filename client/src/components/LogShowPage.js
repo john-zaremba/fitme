@@ -11,7 +11,6 @@ const LogShowPage = (props) => {
     entries: []
   })
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const [showDelete, setShowDelete] = useState(false)
   const [errors, setErrors] = useState([])
   const { id } = useParams()
 
@@ -92,8 +91,38 @@ const LogShowPage = (props) => {
     }
   }
 
-  const handleClickTable = () => {
-    setShowDelete(!showDelete)
+  const patchLogEntry = async (entryId, patchData) => {
+    try {
+      const response = await fetch(`/api/v1/entries/${entryId}`, {
+        method: "PATCH",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(patchData)
+      })
+
+      if (!response.ok) {
+        const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
+        throw error       
+      }
+
+      const responseBody = await response.json()
+      const updatedEntries = [...log.entries]
+
+      for (let i = 0; i < updatedEntries.length; i++) {
+        if (updatedEntries[i].id === entryId) {
+          updatedEntries.splice(i, 1, responseBody.entry)
+        }
+      }
+
+      setLog({
+        ...log,
+        entries: updatedEntries
+      })
+
+    } catch (error) {
+      console.error(error.message)
+    }
   }
 
   useEffect(() => {
@@ -106,7 +135,7 @@ const LogShowPage = (props) => {
         key={entry.id}
         entry={entry}
         deleteLogEntry={deleteLogEntry}
-        showDelete={showDelete}
+        patchLogEntry={patchLogEntry}
       />
     )
   })
@@ -121,7 +150,7 @@ const LogShowPage = (props) => {
         postLogEntry={postLogEntry}
         date={log.date}
       />
-      <table className="entry-table" onClick={handleClickTable}>
+      <table className="entry-table">
         <thead>
           <tr>
             <th>Description</th>
@@ -131,6 +160,7 @@ const LogShowPage = (props) => {
             <th>Fat</th>
             <th>Protein</th>
             <th>Carbs</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
