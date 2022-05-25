@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare, faTrash, faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 
 const LogEntryTile = (props) => {
-  const { id, entryId, name, unit, quantity, calories, fat, protein, carbs } = props.entry
+  const { entryId, name, unit, quantity, calories, fat, protein, carbs } = props.entry
   const { deleteLogEntry, patchLogEntry } = props
   const [editing, setEditing] = useState(false)
   const [newQuantity, setNewQuantity] = useState({ quantity: "" })

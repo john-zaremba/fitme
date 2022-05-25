@@ -105,7 +105,6 @@ const LogShowPage = (props) => {
         if (response.status === 422) {
           const body = await response.json()
           const newErrors = translateServerErrors(body.errors)
-          console.log(newErrors)
           return setErrors(newErrors)
         } else {
           const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
