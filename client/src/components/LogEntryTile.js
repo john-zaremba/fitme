@@ -19,16 +19,16 @@ const LogEntryTile = (props) => {
   const handleInputChange = (event) => {
     setNewQuantity({
       ...newQuantity,
-      [event.currentTarget.name]: [event.currentTarget.value]
+      [event.currentTarget.name]: event.currentTarget.value
     })
   } 
 
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    patchLogEntry(entryId, newQuantity)
-    setNewQuantity({ quantity: "" })
-    setEditing(false)
+      event.preventDefault()
+      patchLogEntry(entryId, newQuantity)
+      setNewQuantity({ quantity: "" })
+      setEditing(false)
   }
 
   const handleEditClick = () => {

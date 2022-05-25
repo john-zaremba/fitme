@@ -19,7 +19,7 @@ logEntriesRouter.post("/", async (req, res) => {
   if (userId === "1" || userId === "2") {
     try {
       const log = await Log.query().findById(logId)
-      const nutritionIxResponse = await NutritionIxClient.naturalSearch(entryQuery.toString(), userId)
+      const nutritionIxResponse = await NutritionIxClient.naturalSearch(entryQuery, userId)
       const nutritionData = JSON.parse(nutritionIxResponse)
       const serializedData = LogEntrySerializer.getSummary(nutritionData)
       const { consumable, newEntry } = await log.addEntry(serializedData)
