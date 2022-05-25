@@ -1,7 +1,7 @@
 import express from "express"
 import objection from "objection"
 import { Log } from "../../../models/index.js"
-import NutritionIxClient from "../../../apiClient/nutritionIxClient.js"
+import NutritionIxClient from "../../../apiClient/NutritionIxClient.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import LogEntrySerializer from "../../../serializers/LogEntrySerializer.js"
 import ConsumableSerializer from "../../../serializers/ConsumableSerializer.js"
