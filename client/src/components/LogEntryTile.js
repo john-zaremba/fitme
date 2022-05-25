@@ -1,17 +1,17 @@
 import React, { useState } from "react"
 
 const LogEntryTile = (props) => {
-  const { id, name, unit, quantity, calories, fat, protein, carbs } = props.entry
-  const { deleteLogEntry, showDelete } = props
+  const { id, entryId, name, unit, quantity, calories, fat, protein, carbs } = props.entry
+  const { deleteLogEntry } = props
   let deleteButton
 
   const handleDelete = () => {
-    deleteLogEntry(id)
+    deleteLogEntry(entryId)
   }
 
-  if (showDelete) {
-    deleteButton = <td className="button alert" onClick={handleDelete}>Delete</td>
-  }
+
+  deleteButton = <td className="button alert" onClick={handleDelete}>Delete</td>
+ 
   return (
     <tr>
       <td>{name}</td>

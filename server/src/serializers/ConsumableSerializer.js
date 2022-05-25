@@ -1,5 +1,5 @@
 class ConsumableSerializer {
-  static getSummary(consumable, quantity) {
+  static getSummary(consumable, quantity, entryId) {
     let serializedConsumable = {}
     const allowedAttributes = [
       "id",
@@ -22,6 +22,7 @@ class ConsumableSerializer {
     }
 
     serializedConsumable.quantity = quantity
+    serializedConsumable.entryId = entryId
 
     return serializedConsumable
   }

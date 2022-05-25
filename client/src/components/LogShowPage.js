@@ -11,7 +11,6 @@ const LogShowPage = (props) => {
     entries: []
   })
   const [shouldRedirect, setShouldRedirect] = useState(false)
-  const [showDelete, setShowDelete] = useState(false)
   const [errors, setErrors] = useState([])
   const { id } = useParams()
 
@@ -81,7 +80,7 @@ const LogShowPage = (props) => {
       }
 
       const updatedEntries = log.entries.filter((entry) => {
-        return entry.id !== entryId
+        return entry.entryId !== entryId
       })
       setLog({
         ...log,
@@ -92,10 +91,6 @@ const LogShowPage = (props) => {
     }
   }
 
-  const handleClickTable = () => {
-    setShowDelete(!showDelete)
-  }
-
   useEffect(() => {
     getLogEntries()
   }, [])
@@ -103,10 +98,9 @@ const LogShowPage = (props) => {
   const logEntriesList = log.entries.map((entry) => {
     return (
       <LogEntryTile 
-        key={entry.id}
+        key={entry.entryId}
         entry={entry}
         deleteLogEntry={deleteLogEntry}
-        showDelete={showDelete}
       />
     )
   })
@@ -121,7 +115,7 @@ const LogShowPage = (props) => {
         postLogEntry={postLogEntry}
         date={log.date}
       />
-      <table className="entry-table" onClick={handleClickTable}>
+      <table className="entry-table">
         <thead>
           <tr>
             <th>Description</th>

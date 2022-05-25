@@ -30,7 +30,7 @@ class LogSerializer {
             logId: log.id, 
             consumableId: consumable.id 
           })
-          const serializedConsumable = ConsumableSerializer.getSummary(consumable, logEntry.quantity)
+          const serializedConsumable = ConsumableSerializer.getSummary(consumable, logEntry.quantity, logEntry.id)
          
           return serializedConsumable
         })
