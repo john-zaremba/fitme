@@ -64,6 +64,32 @@ const LogShowPage = (props) => {
       console.error(error.message)
     }
   }
+  
+  const deleteLogEntry = async (entryId) => {
+    try {
+      const response = await fetch(`/api/v1/entries/${entryId}`, {
+        method: "DELETE",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        })
+      })
+
+      if (!response.ok) {
+        const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
+        throw error       
+      }
+
+      const updatedEntries = log.entries.filter((entry) => {
+        return entry.entryId !== entryId
+      })
+      setLog({
+        ...log,
+        entries: updatedEntries
+      })
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 
   useEffect(() => {
     getLogEntries()
@@ -72,8 +98,9 @@ const LogShowPage = (props) => {
   const logEntriesList = log.entries.map((entry) => {
     return (
       <LogEntryTile 
-        key={entry.id}
+        key={entry.entryId}
         entry={entry}
+        deleteLogEntry={deleteLogEntry}
       />
     )
   })
