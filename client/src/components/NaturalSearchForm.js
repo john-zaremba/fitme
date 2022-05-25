@@ -7,7 +7,7 @@ const NaturalSearchForm = (props) => {
   const handleInputChange = (event) => {
     setNewEntry({
       ...newEntry,
-      [event.currentTarget.name]: [event.currentTarget.value]
+      [event.currentTarget.name]: event.currentTarget.value
     })
   } 
 
@@ -32,12 +32,9 @@ const NaturalSearchForm = (props) => {
             name="entryQuery"
             value={newEntry.entryQuery}
             onChange={handleInputChange}
-          >
-          </input>
+          />
         </label>
-        <div>
-          <input className="my-button" type="submit" value="Submit" />
-        </div>
+        <input className="my-button" type="submit" value="Submit" />
       </form>
     </div>
   )

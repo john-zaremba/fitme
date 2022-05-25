@@ -2,7 +2,7 @@
   font-size: 1.3em;
   font-weight: bold;
   padding: 0px 0px;
-  color: #088046;
+  color: #0DA358;
 }
 
 .my-menu-text {
@@ -13,4 +13,11 @@
 .my-top-bar {
   @extend .top-bar;
   @extend .callout;
+  background-color: white;
+  border: none;
+  box-shadow: 0 0 2px rgb(109, 109, 109);
+}
+
+ul.menu {
+  background-color: white;
 }

@@ -91,6 +91,47 @@ const LogShowPage = (props) => {
     }
   }
 
+  const patchLogEntry = async (entryId, patchData) => {
+    try {
+      const response = await fetch(`/api/v1/entries/${entryId}`, {
+        method: "PATCH",
+        headers: new Headers({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(patchData)
+      })
+
+      if (!response.ok) {
+        if (response.status === 422) {
+          const body = await response.json()
+          const newErrors = translateServerErrors(body.errors)
+          return setErrors(newErrors)
+        } else {
+          const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
+          throw error       
+        }
+      }
+
+      const responseBody = await response.json()
+      const updatedEntries = [...log.entries]
+
+      for (let i = 0; i < updatedEntries.length; i++) {
+        if (updatedEntries[i].entryId === entryId) {
+          updatedEntries.splice(i, 1, responseBody.entry)
+        }
+      }
+
+      setErrors([])
+      setLog({
+        ...log,
+        entries: updatedEntries
+      })
+
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
   useEffect(() => {
     getLogEntries()
   }, [])
@@ -101,6 +142,7 @@ const LogShowPage = (props) => {
         key={entry.entryId}
         entry={entry}
         deleteLogEntry={deleteLogEntry}
+        patchLogEntry={patchLogEntry}
       />
     )
   })
@@ -125,6 +167,7 @@ const LogShowPage = (props) => {
             <th>Fat</th>
             <th>Protein</th>
             <th>Carbs</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
