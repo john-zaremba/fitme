@@ -1,5 +1,6 @@
 import ConsumableSerializer from "./ConsumableSerializer.js"
 import { LogEntry } from "../models/index.js"
+import getMacros from "../services/getMacros.js"
 
 class LogSerializer {
   static async getSummary(log) {
@@ -18,7 +19,14 @@ class LogSerializer {
   static async getDetail(log) {
     try {
       const allowedAttributes = ["id", "userId", "date"]
+      const dynamicAttributes = ["calories", "fat", "protein", "carbs"]
       let serializedLog = {}
+      let total = {
+        calories: 0,
+        fat: 0,
+        protein: 0,
+        carbs: 0
+      }
   
       for (const attribute of allowedAttributes) {
         serializedLog[attribute] = log[attribute]
@@ -31,11 +39,18 @@ class LogSerializer {
             consumableId: consumable.id 
           })
           const serializedConsumable = ConsumableSerializer.getSummary(consumable, logEntry.quantity, logEntry.id)
-         
+
+          for (const attribute of dynamicAttributes) {
+            total[attribute] += serializedConsumable[attribute]
+          }
+
           return serializedConsumable
         })
       )
+      
       serializedLog.entries = serializedConsumables
+      serializedLog.total = total
+      serializedLog.macros = getMacros(total.fat, total.protein, total.carbs)
       
       return serializedLog
     } catch (error) {

@@ -3,12 +3,15 @@ import { useParams } from "react-router-dom"
 import LogEntryTile from "./LogEntryTile"
 import translateServerErrors from "../services/translateServerErrors"
 import NaturalSearchForm from "./NaturalSearchForm"
+import SummaryChart from "./SummaryChart"
 
 const LogShowPage = (props) => {
   const [log, setLog] = useState({
     userId: null,
     date: "",
-    entries: []
+    entries: [],
+    total: {},
+    macros: {}
   })
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [errors, setErrors] = useState([])
@@ -56,6 +59,7 @@ const LogShowPage = (props) => {
         }
       } else {
         const responseBody = await response.json()
+        const { calories, fat, protein, carbs } = responseBody.logEntry
         const updatedEntries = [...log.entries, responseBody.logEntry]
         setErrors([])
         setLog({ ...log, entries: updatedEntries })
@@ -80,11 +84,21 @@ const LogShowPage = (props) => {
       }
 
       const updatedEntries = log.entries.filter((entry) => {
-        return entry.entryId !== entryId
+        return entry.entryId !== entryId   
       })
+      const entryToDelete = log.entries.find(entry => entry.entryId === entryId)
+      const updatedTotal = {
+        calories: log.total.calories - entryToDelete.calories,
+        fat: log.total.fat - entryToDelete.fat,
+        protein: log.total.protein - entryToDelete.protein,
+        carbs: log.total.carbs - entryToDelete.carbs
+      }
+      console.log(updatedTotal)
+     
       setLog({
         ...log,
-        entries: updatedEntries
+        entries: updatedEntries,
+        total: updatedTotal
       })
     } catch (error) {
       console.error(error.message)
@@ -153,10 +167,14 @@ const LogShowPage = (props) => {
   
   return (
     <div className="grid-container">
-      <NaturalSearchForm 
-        postLogEntry={postLogEntry}
-        date={log.date}
-      />
+      <div className="grid-x grid-margin-x">
+        <NaturalSearchForm 
+          postLogEntry={postLogEntry}
+          date={log.date}
+          total={log.total}
+        />
+      </div>
+      <SummaryChart log={log} />
       <table className="entry-table">
         <thead>
           <tr>

@@ -7,31 +7,31 @@ class LogSeeder {
     const logsData = [
       {
         userId: hello.id,
-        date: "1/10/21"
+        date: "1/10/2021"
       },
       {
         userId: hello.id,
-        date: "2/10/21"
+        date: "2/10/2021"
       },
       {
         userId: hello.id,
-        date: "5/10/21"
+        date: "5/10/2021"
       },
       {
         userId: hello.id,
-        date: "7/10/21"
+        date: "7/10/2021"
       },
       {
         userId: hello.id,
-        date: "2/12/22"
+        date: "2/12/2022"
       },
       {
         userId: hello.id,
-        date: "3/10/22"
+        date: "3/10/2022"
       },
       {
         userId: hello.id,
-        date: "4/12/22"
+        date: "4/12/2022"
       }
     ]
 

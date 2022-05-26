@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
 const NaturalSearchForm = (props) => {
-  const { postLogEntry, date } = props
+  const { postLogEntry, date, total } = props
   const [newEntry, setNewEntry] = useState({ entryQuery: "" })
 
   const handleInputChange = (event) => {
@@ -23,7 +23,8 @@ const NaturalSearchForm = (props) => {
 
   return (
     <div className="form">
-      <h4>Nutrition Log: {date}</h4>
+      <h4 >Nutrition Log: {date}</h4>
+      <p>Calorie Count: {total.calories}</p>
       <form onSubmit={handleSubmit}>
         <label>
           Easy Add:
