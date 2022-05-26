@@ -48,7 +48,9 @@ class LogSerializer {
         })
       )
       
-      serializedLog.entries = serializedConsumables
+      serializedLog.entries = serializedConsumables.sort((a, b) => {
+        return b.entryId - a.entryId
+      })
       serializedLog.total = total
       serializedLog.macros = getMacros(total.fat, total.protein, total.carbs)
       

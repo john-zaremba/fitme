@@ -2,10 +2,9 @@
   @extend .callout;
   @extend .cell;
   @extend .large-6;
-  margin-top: 16px;
   width: 250px;
   border-radius: 5px;
-  box-shadow: 0 0 5px rgb(220, 220, 220);
+  box-shadow: inset 0 0 10px rgb(193, 193, 193);
 }
 
 .sign-form {
@@ -28,4 +27,10 @@
 
 .my-icon:hover {
   color: rgb(110, 110, 110);
+}
+
+.table-wrapper {
+  @extend .callout;
+  border-radius: 5px;
+  box-shadow: inset 0 0 10px rgb(193, 193, 193);
 }

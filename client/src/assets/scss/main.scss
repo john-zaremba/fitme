@@ -19,4 +19,9 @@
 
 body {
   background-color: rgb(255, 253, 249);
+  background-image: url(https://images.pexels.com/photos/1414651/pexels-photo-1414651.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }

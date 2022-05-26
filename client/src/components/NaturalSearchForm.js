@@ -23,7 +23,7 @@ const NaturalSearchForm = (props) => {
 
   return (
     <div className="form">
-      <h4 >Nutrition Log: {date}</h4>
+      <h4>Nutrition Log: {date}</h4>
       <p>Calorie Count: {total.calories}</p>
       <form onSubmit={handleSubmit}>
         <label>

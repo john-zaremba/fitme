@@ -59,10 +59,15 @@ const LogShowPage = (props) => {
         }
       } else {
         const responseBody = await response.json()
-        const { calories, fat, protein, carbs } = responseBody.logEntry
-        const updatedEntries = [...log.entries, responseBody.logEntry]
+        const { entries, total, macros } = responseBody.log
+        
         setErrors([])
-        setLog({ ...log, entries: updatedEntries })
+        setLog({ 
+          ...log, 
+          entries,
+          total,
+          macros
+        })
       }
     } catch (error) {
       console.error(error.message)
@@ -83,22 +88,14 @@ const LogShowPage = (props) => {
         throw error       
       }
 
-      const updatedEntries = log.entries.filter((entry) => {
-        return entry.entryId !== entryId   
-      })
-      const entryToDelete = log.entries.find(entry => entry.entryId === entryId)
-      const updatedTotal = {
-        calories: log.total.calories - entryToDelete.calories,
-        fat: log.total.fat - entryToDelete.fat,
-        protein: log.total.protein - entryToDelete.protein,
-        carbs: log.total.carbs - entryToDelete.carbs
-      }
-      console.log(updatedTotal)
+      const responseBody = await response.json()
+      const { entries, total, macros } = responseBody.log
      
       setLog({
         ...log,
-        entries: updatedEntries,
-        total: updatedTotal
+        entries,
+        total,
+        macros
       })
     } catch (error) {
       console.error(error.message)
@@ -127,18 +124,14 @@ const LogShowPage = (props) => {
       }
 
       const responseBody = await response.json()
-      const updatedEntries = [...log.entries]
-
-      for (let i = 0; i < updatedEntries.length; i++) {
-        if (updatedEntries[i].entryId === entryId) {
-          updatedEntries.splice(i, 1, responseBody.entry)
-        }
-      }
+      const { entries, total, macros } = responseBody.log
 
       setErrors([])
       setLog({
         ...log,
-        entries: updatedEntries
+        entries,
+        total,
+        macros
       })
 
     } catch (error) {
@@ -175,23 +168,25 @@ const LogShowPage = (props) => {
         />
       </div>
       <SummaryChart log={log} />
-      <table className="entry-table">
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Unit</th>
-            <th>Quantity</th>
-            <th>Calories</th>
-            <th>Fat</th>
-            <th>Protein</th>
-            <th>Carbs</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {logEntriesList}
-        </tbody>
-      </table>
+      <div className="table-wrapper">
+        <table className="entry-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Unit</th>
+              <th>Quantity</th>
+              <th>Calories</th>
+              <th>Fat</th>
+              <th>Protein</th>
+              <th>Carbs</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {logEntriesList}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

@@ -8,16 +8,17 @@
 .my-menu-text {
   @extend .menu-text;
   font-size: 1.3em;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .my-top-bar {
   @extend .top-bar;
   @extend .callout;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.94);
   border: none;
   box-shadow: 0 0 2px rgb(109, 109, 109);
 }
 
 ul.menu {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
 }
