@@ -12,7 +12,7 @@ my-easy-tracker.herokuapp.com
 
 In compliance with Nutritionix terms of service, My Easy Tracker provides a demo account for users to explore. The sign in page provides a demo account autofill button. Users can also type in the credentials themselves:  
 
-email: hello@email.com. 
+email: hello@email.com  
 password: hello
 
 ## Core Technologies 
