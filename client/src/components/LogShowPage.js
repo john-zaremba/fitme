@@ -3,12 +3,15 @@ import { useParams } from "react-router-dom"
 import LogEntryTile from "./LogEntryTile"
 import translateServerErrors from "../services/translateServerErrors"
 import NaturalSearchForm from "./NaturalSearchForm"
+import SummaryChart from "./SummaryChart"
 
 const LogShowPage = (props) => {
   const [log, setLog] = useState({
     userId: null,
     date: "",
-    entries: []
+    entries: [],
+    total: {},
+    macros: {}
   })
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [errors, setErrors] = useState([])
@@ -56,9 +59,15 @@ const LogShowPage = (props) => {
         }
       } else {
         const responseBody = await response.json()
-        const updatedEntries = [...log.entries, responseBody.logEntry]
+        const { entries, total, macros } = responseBody.log
+        
         setErrors([])
-        setLog({ ...log, entries: updatedEntries })
+        setLog({ 
+          ...log, 
+          entries,
+          total,
+          macros
+        })
       }
     } catch (error) {
       console.error(error.message)
@@ -79,12 +88,14 @@ const LogShowPage = (props) => {
         throw error       
       }
 
-      const updatedEntries = log.entries.filter((entry) => {
-        return entry.entryId !== entryId
-      })
+      const responseBody = await response.json()
+      const { entries, total, macros } = responseBody.log
+     
       setLog({
         ...log,
-        entries: updatedEntries
+        entries,
+        total,
+        macros
       })
     } catch (error) {
       console.error(error.message)
@@ -113,18 +124,14 @@ const LogShowPage = (props) => {
       }
 
       const responseBody = await response.json()
-      const updatedEntries = [...log.entries]
-
-      for (let i = 0; i < updatedEntries.length; i++) {
-        if (updatedEntries[i].entryId === entryId) {
-          updatedEntries.splice(i, 1, responseBody.entry)
-        }
-      }
+      const { entries, total, macros } = responseBody.log
 
       setErrors([])
       setLog({
         ...log,
-        entries: updatedEntries
+        entries,
+        total,
+        macros
       })
 
     } catch (error) {
@@ -153,27 +160,33 @@ const LogShowPage = (props) => {
   
   return (
     <div className="grid-container">
-      <NaturalSearchForm 
-        postLogEntry={postLogEntry}
-        date={log.date}
-      />
-      <table className="entry-table">
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Unit</th>
-            <th>Quantity</th>
-            <th>Calories</th>
-            <th>Fat</th>
-            <th>Protein</th>
-            <th>Carbs</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {logEntriesList}
-        </tbody>
-      </table>
+      <div className="grid-x grid-margin-x">
+        <NaturalSearchForm 
+          postLogEntry={postLogEntry}
+          date={log.date}
+          total={log.total}
+        />
+      </div>
+      <SummaryChart log={log} />
+      <div className="table-wrapper">
+        <table className="entry-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Unit</th>
+              <th>Quantity</th>
+              <th>Calories</th>
+              <th>Fat</th>
+              <th>Protein</th>
+              <th>Carbs</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {logEntriesList}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

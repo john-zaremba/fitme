@@ -5,6 +5,8 @@
 @import "./components/LogShowPage.scss";
 @import "./components/Button.scss";
 @import "./components/TopBar.scss";
+@import "./components/LandingPage.scss";
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 // place global css here
 *,
 *::before,
@@ -19,4 +21,9 @@
 
 body {
   background-color: rgb(255, 253, 249);
+  background-image: url(https://images.pexels.com/photos/1414651/pexels-photo-1414651.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }

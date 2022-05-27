@@ -1,9 +1,8 @@
 import express from "express"
 import objection from "objection"
 import { LogEntry } from "../../../models/index.js"
-import ConsumableSerializer from "../../../serializers/ConsumableSerializer.js"
+import LogSerializer from "../../../serializers/LogSerializer.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
-const { ValidationError } = objection
 
 const entriesRouter = new express.Router()
 
@@ -11,8 +10,12 @@ entriesRouter.delete("/:id", async (req, res) => {
   const { id } = req.params
 
   try {
+    const logEntry = await LogEntry.query().findById(id)
+    const log = await logEntry.$relatedQuery("log")
     await LogEntry.query().deleteById(id)
-    return res.status(200).json({ message: "Review successfully deleted"})
+    const updatedLog = await LogSerializer.getDetail(log)
+
+    return res.status(200).json({ log: updatedLog })
   } catch (error) {
     return res.status(500).json({ errors: error })
   }
@@ -25,11 +28,12 @@ entriesRouter.patch("/:id", async (req, res) => {
   const { quantity } = formInput
 
   try {
-    const patchedEntry = await LogEntry.query().patchAndFetchById(id, { quantity })
-    const relatedConsumable = await patchedEntry.$relatedQuery("consumable")
-    const serializedConsumable = ConsumableSerializer.getSummary(relatedConsumable, patchedEntry.quantity, patchedEntry.id)
+    const logEntry = await LogEntry.query().findById(id)
+    const log = await logEntry.$relatedQuery("log")
+    await LogEntry.query().patchAndFetchById(id, { quantity })
+    const updatedLog = await LogSerializer.getDetail(log)
     
-    return res.status(200).json({ entry: serializedConsumable })
+    return res.status(200).json({ log: updatedLog })
   } catch (error) {
     return res.status(500).json({ errors: error })
   }
