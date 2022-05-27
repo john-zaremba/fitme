@@ -5,9 +5,9 @@ const SummaryChart = (props) => {
   const { total, macros } = props.log
   const pieData = [
     ["Macronutrient", "Percent of Total Calories"],
-    ["Fat", macros.fat],
-    ["Protein", macros.protein],
-    ["Carbs", macros.carbs]
+    ["Fat", parseInt(macros.fat)],
+    ["Protein", parseInt(macros.protein)],
+    ["Carbs", parseInt(macros.carbs)]
   ]
   const pieOptions = {
     chartArea: {width: 300, height: 300},
@@ -27,9 +27,9 @@ const SummaryChart = (props) => {
         calc: "stringify"
       }
     ],
-    ["Fat", total.fat, "#d9584a", null],
-    ["Protein", total.protein, "#4cb17f", null],
-    ["Carbs", total.carbs, "#37412a", null]
+    ["Fat", parseInt(total.fat), "#d9584a", null],
+    ["Protein", parseInt(total.protein), "#4cb17f", null],
+    ["Carbs", parseInt(total.carbs), "#37412a", null]
   ]
   const barOptions = {
     width: 480,
