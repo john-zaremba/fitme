@@ -28,7 +28,6 @@ logEntriesRouter.post("/", async (req, res) => {
 
       return res.status(201).json({ log: serializedLog })
     } catch (error) {
-      console.log(error)
       return res.status(500).json({ errors: error })
     }
   } else {
