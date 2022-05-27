@@ -6,7 +6,7 @@ A fitness web app that makes nutrition tracking fast, easy, and accessible with 
 
 ## Production Link
 
-my-easy-tracker.herokuapp.com
+https://my-easy-tracker.herokuapp.com/
 
 ## Usage
 
