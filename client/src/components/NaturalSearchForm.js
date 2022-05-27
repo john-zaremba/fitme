@@ -36,6 +36,7 @@ const NaturalSearchForm = (props) => {
           />
         </label>
         <input className="my-button" type="submit" value="Submit" />
+        <p className="reference">Powered by Nutritionix</p>
       </form>
     </div>
   )
