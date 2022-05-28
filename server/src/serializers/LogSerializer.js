@@ -31,24 +31,23 @@ class LogSerializer {
       for (const attribute of allowedAttributes) {
         serializedLog[attribute] = log[attribute]
       }
-      const relatedConsumables = await log.$relatedQuery("consumables")
-      const serializedConsumables = await Promise.all(
-        relatedConsumables.map(async (consumable) => {
-          const logEntry = await LogEntry.query().findOne({ 
-            logId: log.id, 
-            consumableId: consumable.id 
-          })
-          const serializedConsumable = ConsumableSerializer.getSummary(consumable, logEntry.quantity, logEntry.id)
+
+      const relatedEntries = await log.$relatedQuery("logEntries")
+
+      const serializedEntries = await Promise.all(
+        relatedEntries.map(async (entry) => {
+          const consumable = await entry.$relatedQuery("consumable")
+          const serializedEntry = ConsumableSerializer.getSummary(consumable, entry.quantity, entry.id)
 
           for (const attribute of dynamicAttributes) {
-            total[attribute] += serializedConsumable[attribute]
+            total[attribute] += serializedEntry[attribute]
           }
-
-          return serializedConsumable
+          
+          return serializedEntry
         })
       )
-      
-      serializedLog.entries = serializedConsumables.sort((a, b) => {
+
+      serializedLog.entries = serializedEntries.sort((a, b) => {
         return b.entryId - a.entryId
       })
       serializedLog.total = total
