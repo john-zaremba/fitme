@@ -34,6 +34,13 @@ const SignInForm = () => {
     return isValid
   }
 
+  const handleAutofill = (event) => {
+    setUserPayload({
+      email: "hello@email.com",
+      password: "hello"
+    })
+  }
+
   const onSubmit = async (event) => {
     event.preventDefault()
     const isValid = validateInput(userPayload)
@@ -95,8 +102,9 @@ const SignInForm = () => {
               <FormError error={errors.password} />
             </label>
           </div>
-          <div>
-            <input type="submit" className="my-button" value="Sign In" />
+          <input type="submit" className="sign-button" value="Sign In" />
+          <div className="sign-button" onClick={handleAutofill}>
+            Demo Account Autofill
           </div>
         </form>
       </div>
