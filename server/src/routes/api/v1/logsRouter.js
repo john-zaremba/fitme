@@ -19,6 +19,7 @@ logsRouter.get("/", async (req, res) => {
         return await LogSerializer.getSummary(log)
       })
     )
+    serializedUserLogs.reverse()
     return res.status(200).json({ logs: serializedUserLogs }) 
   } catch (error) {
     return res.status(500).json({ errors: error })
