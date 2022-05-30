@@ -16,6 +16,15 @@ const LogShowPage = (props) => {
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [errors, setErrors] = useState([])
   const { id } = useParams()
+  let errorContainer
+
+  if (errors.length > 0) {
+    errorContainer = (
+      <div className="post-error">
+        {errors}
+      </div>
+    )
+  }
 
   const getLogEntries = async () => {
     try {
@@ -49,6 +58,9 @@ const LogShowPage = (props) => {
         if (response.status === 401) {
           const body = await response.json()
           console.error(body.errors)
+        } else if (response.status === 404) {
+          const responseBody = await response.json()
+          setErrors(responseBody.errors)
         } else if (response.status === 422) {
           const body = await response.json()
           const newErrors = translateServerErrors(body.errors)
@@ -57,18 +69,18 @@ const LogShowPage = (props) => {
           const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
           throw error
         }
-      } else {
-        const responseBody = await response.json()
-        const { entries, total, macros } = responseBody.log
-        
-        setErrors([])
-        setLog({ 
-          ...log, 
-          entries,
-          total,
-          macros
-        })
-      }
+      } 
+
+      const responseBody = await response.json()
+      const { entries, total, macros } = responseBody.log
+      
+      setErrors([])
+      setLog({ 
+        ...log, 
+        entries,
+        total,
+        macros
+      })
     } catch (error) {
       console.error(error.message)
     }
@@ -133,7 +145,6 @@ const LogShowPage = (props) => {
         total,
         macros
       })
-
     } catch (error) {
       console.error(error.message)
     }
@@ -165,6 +176,7 @@ const LogShowPage = (props) => {
           postLogEntry={postLogEntry}
           date={log.date}
           total={log.total}
+          errorContainer={errorContainer}
         />
       </div>
       <SummaryChart log={log} />

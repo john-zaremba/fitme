@@ -1,13 +1,10 @@
 import express from "express"
-import objection from "objection"
 import { Log } from "../../../models/index.js"
 import NutritionIxClient from "../../../apiClient/NutritionIxClient.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 import LogEntrySerializer from "../../../serializers/LogEntrySerializer.js"
-import ConsumableSerializer from "../../../serializers/ConsumableSerializer.js"
 import LogSerializer from "../../../serializers/LogSerializer.js"
 
-const { ValidationError } = objection
 const logEntriesRouter = new express.Router({ mergeParams: true })
 
 logEntriesRouter.post("/", async (req, res) => {
@@ -21,6 +18,9 @@ logEntriesRouter.post("/", async (req, res) => {
     try {
       const log = await Log.query().findById(logId)
       const nutritionIxResponse = await NutritionIxClient.naturalSearch(entryQuery, userId)
+      if (nutritionIxResponse.error == "Response code 404 (Not Found)") {
+        return res.status(404).json({ errors: "Item not found" })
+      } 
       const nutritionData = JSON.parse(nutritionIxResponse)
       const serializedData = LogEntrySerializer.getSummary(nutritionData)
       await log.addEntry(serializedData)
