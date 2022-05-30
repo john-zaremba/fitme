@@ -7,10 +7,20 @@ const LogEntryTile = (props) => {
   const { deleteLogEntry, patchLogEntry } = props
   const [editing, setEditing] = useState(false)
   const [newQuantity, setNewQuantity] = useState({ quantity: "" })
+  const [patchErrors, setPatchErrors] = useState([])
   let leftButton
   let rightButton
   let entryQuantity
   let buttonCollection
+  let errorContainer
+
+  if (patchErrors.length > 0) {
+    errorContainer = (
+      <td className="patch-error">
+        {patchErrors}
+      </td>
+    )
+  }
 
   const handleDelete = () => {
     deleteLogEntry(entryId)
@@ -23,12 +33,20 @@ const LogEntryTile = (props) => {
     })
   } 
 
-
   const handleSubmit = (event) => {
-      event.preventDefault()
+    event.preventDefault()
+    const quantity = Number(newQuantity.quantity)
+
+    if (quantity % 1 === 0) {
+      setPatchErrors([])
       patchLogEntry(entryId, newQuantity)
       setNewQuantity({ quantity: "" })
       setEditing(false)
+    } else {
+      setPatchErrors(
+        "Please enter a whole number"
+      )
+    }
   }
 
   const handleEditClick = () => {
@@ -37,32 +55,60 @@ const LogEntryTile = (props) => {
 
   const handleCancelClick = () => {
     setEditing(false)
+    setNewQuantity({ quantity: "" })
+    setPatchErrors([])
   }
 
 
   if (editing) {
-    entryQuantity = <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="quantity"
-        value={newQuantity.quantity}
-        onChange={handleInputChange}
-      />
-    </form>
+    entryQuantity = (
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="quantity"
+          value={newQuantity.quantity}
+          onChange={handleInputChange}
+        />
+      </form>
+    )
   } else {
     entryQuantity = quantity
   }
 
   if (!editing) {
-    leftButton = <FontAwesomeIcon className="my-icon" icon={faPenToSquare} onClick={handleEditClick} />
-    rightButton = <FontAwesomeIcon className="my-icon" icon={faTrash} onClick={handleDelete} />
+    leftButton = (
+      <FontAwesomeIcon 
+        className="my-icon" 
+        icon={faPenToSquare} 
+        onClick={handleEditClick} 
+      />
+    )
+    rightButton = (
+      <FontAwesomeIcon 
+        className="my-icon" 
+        icon={faTrash} 
+        onClick={handleDelete} 
+      />
+    )
     buttonCollection = <td width="5%">{leftButton}{rightButton}</td>
   } else if (editing) {
-    leftButton = <FontAwesomeIcon className="my-icon" icon={faCheck} onClick={handleSubmit} />
-    rightButton = <FontAwesomeIcon className="my-icon"icon={faX} onClick={handleCancelClick} />
+    leftButton = (
+      <FontAwesomeIcon 
+        className="my-icon" 
+        icon={faCheck} 
+        onClick={handleSubmit} 
+      />
+    )
+    rightButton = (
+      <FontAwesomeIcon 
+        className="my-icon"
+        icon={faX} 
+        onClick={handleCancelClick} 
+      />
+    )
     buttonCollection = <td width="5%">{leftButton}{rightButton}</td>
   } 
-
+  
   return (
     <tr>
       <td>{name}</td>
@@ -73,6 +119,7 @@ const LogEntryTile = (props) => {
       <td>{protein}g</td>
       <td>{carbs}g</td>
       {buttonCollection}
+      {errorContainer} 
     </tr>
   )
 }
