@@ -8,8 +8,8 @@ class UserSeeder {
         password: "world"
       },
       {
-        email: "world@email.com",
-        password: "hello"
+        email: "extra@email.com",
+        password: "placeHolderAccount"
       }
     ]
 
