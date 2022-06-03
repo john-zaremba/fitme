@@ -31,7 +31,7 @@ logEntriesRouter.post("/", async (req, res) => {
       return res.status(500).json({ errors: error })
     }
   } else {
-    return res.status(401).json({ errors: "Unauthorized request: please sign in to demo account" })
+    return res.status(401).json({ errors: "Please sign in to demo account to use this feature" })
   }
 })
 

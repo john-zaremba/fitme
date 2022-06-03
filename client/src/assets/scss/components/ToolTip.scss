@@ -1,0 +1,15 @@
+.my-tip {
+  background-color: white !important;
+  color: black !important;
+  font-weight: bold !important;
+  opacity: 1 !important;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 5px rgb(193, 193, 193);
+}
+
+.tip-icon {
+  @extend .float-right;
+  margin-right: 10px;
+  margin-top: 10px;
+}

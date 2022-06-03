@@ -57,7 +57,7 @@ const LogShowPage = (props) => {
       if (!response.ok) {
         if (response.status === 401) {
           const body = await response.json()
-          console.error(body.errors)
+          setErrors(body.errors)
         } else if (response.status === 404) {
           const responseBody = await response.json()
           setErrors(responseBody.errors)
