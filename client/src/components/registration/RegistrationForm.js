@@ -90,7 +90,7 @@ const RegistrationForm = () => {
   }
 
   if (shouldRedirect) {
-    location.href = "/"
+    location.href = "/logs"
   }
 
   return (

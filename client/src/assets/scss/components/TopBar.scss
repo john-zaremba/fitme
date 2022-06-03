@@ -17,6 +17,10 @@
   background-color: rgba(255, 255, 255, 0.94);
   border: none;
   box-shadow: 0 0 2px rgb(109, 109, 109);
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 0;
 }
 
 ul.menu {

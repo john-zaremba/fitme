@@ -8,6 +8,7 @@
 @import "./components/LandingPage.scss";
 @import "./components/SignPage.scss";
 @import "./components/Error.scss";
+@import "./components/ToolTip.scss";
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 // place global css here
 *,
@@ -24,8 +25,22 @@
 body {
   background-color: rgb(255, 253, 249);
   background-image: url(https://images.pexels.com/photos/1414651/pexels-photo-1414651.jpeg);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: cover;
+  background-position-x: center;
+  background-attachment: fixed;
 }
+
+@media only screen and (max-width: 700px) {
+  body {
+    background-color: rgb(255, 253, 249);
+    background-image: url(https://images.pexels.com/photos/1414651/pexels-photo-1414651.jpeg);
+    background-size: 200% 100vh;
+    background-position-x: center;
+    background-attachment: fixed;
+  }
+}
+
+.grid-container {
+  margin-top: 100px;
+}
+
