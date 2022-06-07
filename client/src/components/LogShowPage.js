@@ -4,6 +4,7 @@ import LogEntryTile from "./LogEntryTile"
 import translateServerErrors from "../services/translateServerErrors"
 import NaturalSearchForm from "./NaturalSearchForm"
 import SummaryChart from "./SummaryChart"
+import CalorieChart from "./CalorieChart"
 
 const LogShowPage = (props) => {
   const [log, setLog] = useState({
@@ -177,6 +178,10 @@ const LogShowPage = (props) => {
           date={log.date}
           total={log.total}
           errorContainer={errorContainer}
+        />
+        <CalorieChart 
+          user={props.user} 
+          total={log.total} 
         />
       </div>
       <SummaryChart log={log} />

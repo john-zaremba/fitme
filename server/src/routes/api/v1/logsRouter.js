@@ -3,6 +3,7 @@ import { Log } from "../../../models/index.js"
 import LogSerializer from "../../../serializers/LogSerializer.js"
 import User from "../../../models/User.js"
 import logEntriesRouter from "./logEntriesRouter.js"
+import getBMR from "../../../services/getBMR.js"
 
 const logsRouter = new express.Router()
 

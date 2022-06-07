@@ -12,7 +12,7 @@ const SummaryChart = (props) => {
   const pieOptions = {
     chartArea: {width: 300, height: 300},
     colors: ["#d9584a", "#4cb17f", "#37412a"],
-    pieHole: 0.4,
+    pieHole: 0.2,
     is3D: false
   }
   const barData = [

@@ -3,4 +3,10 @@
   @extend .large;
   border-radius: 5px;
   font-weight: bold;
+  margin-bottom: 0;
+}
+
+.log-button {
+  @extend .my-button;
+  margin-bottom: 15px;
 }

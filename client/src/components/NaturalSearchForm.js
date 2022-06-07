@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 
 const NaturalSearchForm = (props) => {
-  const { postLogEntry, date, total, errorContainer } = props
+  const { postLogEntry, date, errorContainer } = props
   const [newEntry, setNewEntry] = useState({ entryQuery: "" })
 
   const handleInputChange = (event) => {
@@ -40,7 +40,7 @@ const NaturalSearchForm = (props) => {
         </ReactTooltip>
       </div>
       <h4>Nutrition Log: {date}</h4>
-      <p>Calorie Count: {total.calories}</p>
+      <br />
       {errorContainer}
       <form onSubmit={handleSubmit}>
         <label>
@@ -52,6 +52,7 @@ const NaturalSearchForm = (props) => {
             onChange={handleInputChange}
           />
         </label>
+        <br />
         <input className="my-button" type="submit" value="Submit" />
         <p className="reference">Powered by Nutritionix</p>
       </form>

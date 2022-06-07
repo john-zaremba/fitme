@@ -65,7 +65,7 @@ const LogListPage = (props) => {
         <h3 className="text-center">
           My Logs
         </h3>
-        <div className="my-button" onClick={postLog}>
+        <div className="log-button" onClick={postLog}>
           Log My Day
         </div>
         <div className="log-list">

@@ -28,3 +28,5 @@ const getBMR = (gender, height, weight, age, activity) => {
     return Math.round(BMR * activityMultiplier)
   }
 }
+
+export default getBMR
