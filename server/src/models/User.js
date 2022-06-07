@@ -45,7 +45,13 @@ class User extends uniqueFunc(Model) {
 
       properties: {
         email: { type: "string", pattern: "^\\S+@\\S+\\.\\S+$" },
-        cryptedPassword: { type: "string" }
+        cryptedPassword: { type: "string" },
+        age: { type: ["string", "integer"] },
+        height: { type: ["string", "integer"] },
+        weight: { type: ["string", "integer"] },
+        activityLevel: { type: ["string", "integer"] },
+        gender: { type: "string" },
+        bmr: { type: ["string", "integer"] }
       }
     }
   }
