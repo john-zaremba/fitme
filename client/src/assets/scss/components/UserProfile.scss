@@ -1,0 +1,22 @@
+.bmr-form {
+  @extend .sign-form;
+  margin-top: 0;
+}
+
+.bmr-format {
+  padding: 30px 60px;
+}
+
+.bmr-entry {
+  @extend .cell;
+  @extend .small-3;
+  font-weight: bold;
+}
+
+.bmr-label {
+  font-weight: bold;
+}
+
+.rounded {
+  border-radius: 5px;
+}

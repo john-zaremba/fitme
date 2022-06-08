@@ -86,7 +86,13 @@ const SignInForm = () => {
           <div>
             <label>
               Email
-              <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
+              <input 
+                className="rounded" 
+                type="text" 
+                name="email" 
+                value={userPayload.email} 
+                onChange={onInputChange} 
+              />
               <FormError error={errors.email} />
             </label>
           </div>
@@ -94,6 +100,7 @@ const SignInForm = () => {
             <label>
               Password
               <input
+                className="rounded"
                 type="password"
                 name="password"
                 value={userPayload.password}
