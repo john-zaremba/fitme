@@ -1,13 +1,14 @@
 import React, { useState } from "react"
 
 const UserInfoForm = (props) => {
+  const { putUserInfo } = props
   const [userInfo, setUserInfo] = useState({
     age: null,
     feet: null,
     inches: null,
     weight: null,
     activityLevel: null,
-    gender: ""
+    sex: ""
   })
 
   const handleInputChange = (event) => {
@@ -17,9 +18,22 @@ const UserInfoForm = (props) => {
     })
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    putUserInfo(userInfo)
+    setUserInfo({
+      age: null,
+      feet: null,
+      inches: null,
+      weight: null,
+      activityLevel: null,
+      sex: ""
+    })
+  }
+
   return (
     <div className="bmr-form">
-      <form className="bmr-format">
+      <form className="bmr-format" onSubmit={handleSubmit}>
         <h4>BMR Calculator</h4>
         <br />
         <div className="grid-x grid-margin-x">
@@ -70,17 +84,17 @@ const UserInfoForm = (props) => {
           </label>
         </div>
         <label className="bmr-entry">
-          Gender <br />
+          Sex <br />
           <input
             type="radio"
-            name="gender"
+            name="sex"
             value="female"
             onChange={handleInputChange}
           />
           <label>Female</label>
           <input
             type="radio"
-            name="gender"
+            name="sex"
             value="male"
             onChange={handleInputChange}
           />
