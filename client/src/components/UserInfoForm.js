@@ -1,32 +1,42 @@
 import React, { useState } from "react"
 
 const UserInfoForm = (props) => {
-  const { putUserInfo } = props
+  const { patchUserInfo } = props
   const [userInfo, setUserInfo] = useState({
-    age: null,
-    feet: null,
-    inches: null,
-    weight: null,
-    activityLevel: null,
+    age: "",
+    feet: "",
+    inches: "",
+    weight: "",
+    activityLevel: "",
     sex: ""
   })
 
   const handleInputChange = (event) => {
-    setUserInfo({
-      ...userInfo,
-      [event.currentTarget.name]: event.currentTarget.value
-    })
+    const target = event.currentTarget
+    if (target.type === "radio") {
+      if (target.checked) {
+        setUserInfo({
+          ...userInfo,
+          [target.name]: target.value
+        })
+      }
+    } else {
+      setUserInfo({
+        ...userInfo,
+        [target.name]: target.value
+      })
+    }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    putUserInfo(userInfo)
+    patchUserInfo(userInfo)
     setUserInfo({
-      age: null,
-      feet: null,
-      inches: null,
-      weight: null,
-      activityLevel: null,
+      age: "",
+      feet: "",
+      inches: "",
+      weight: "",
+      activityLevel: "",
       sex: ""
     })
   }
@@ -89,6 +99,7 @@ const UserInfoForm = (props) => {
             type="radio"
             name="sex"
             value="female"
+            checked={userInfo.sex === "female"}
             onChange={handleInputChange}
           />
           <label>Female</label>
@@ -96,6 +107,7 @@ const UserInfoForm = (props) => {
             type="radio"
             name="sex"
             value="male"
+            checked={userInfo.sex === "male"}
             onChange={handleInputChange}
           />
           <label>Male</label>
@@ -106,6 +118,7 @@ const UserInfoForm = (props) => {
             type="radio"
             name="activityLevel"
             value="1"
+            checked={userInfo.activityLevel === "1"}
             onChange={handleInputChange}
           />
           <label>Sedentary: little or no exercise</label><br />
@@ -113,6 +126,7 @@ const UserInfoForm = (props) => {
             type="radio"
             name="activityLevel"
             value="2"
+            checked={userInfo.activityLevel === "2"}
             onChange={handleInputChange}
           />
           <label>Lightly Active: exercise 1-3 days / week</label><br />
@@ -120,6 +134,7 @@ const UserInfoForm = (props) => {
             type="radio"
             name="activityLevel"
             value="3"
+            checked={userInfo.activityLevel === "3"}
             onChange={handleInputChange}
           />
           <label>Moderately Active: exercise 3-5 days / week</label><br />
@@ -127,6 +142,7 @@ const UserInfoForm = (props) => {
             type="radio"
             name="activityLevel"
             value="4"
+            checked={userInfo.activityLevel === "4"}
             onChange={handleInputChange}
           />
           <label>Vigorously Active: exercise 6-7 days / week</label><br />
@@ -134,6 +150,7 @@ const UserInfoForm = (props) => {
             type="radio"
             name="activityLevel"
             value="5"
+            checked={userInfo.activityLevel === "5"}
             onChange={handleInputChange}
           />
           <label>Extremely Active: exercise 2 times / day</label>

@@ -1,14 +1,16 @@
 import React, { useState } from "react"
 import UserInfoForm from "./UserInfoForm"
 import translateServerErrors from "../services/translateServerErrors"
+import ProfileSummary from "./ProfileSummary"
 
 const UserProfilePage = (props) => {
   const [errors, setErrors] = useState([])
+  const { setCurrentUser } = props
 
-  const putUserInfo = async (formInput) => {
+  const patchUserInfo = async (formInput) => {
     try {
       const response = await fetch("/api/v1/users", {
-        method: "PUT",
+        method: "PATCH",
         headers: new Headers({
           "Content-Type": "application/json"
         }),
@@ -27,7 +29,8 @@ const UserProfilePage = (props) => {
       }
 
       const responseBody = await response.json()
-      console.log(responseBody.userProfile)
+      setCurrentUser(responseBody.user)
+      console.log(responseBody.user)
     } catch (error) {
       console.error(error.message)
     }
@@ -35,9 +38,12 @@ const UserProfilePage = (props) => {
 
   return (
     <div className="grid-container">
+      <ProfileSummary 
+        user={props.user}
+      />
       <UserInfoForm 
         user={props.user} 
-        putUserInfo={putUserInfo}
+        patchUserInfo={patchUserInfo}
       />
     </div>
   )
