@@ -44,7 +44,7 @@ const UserInfoForm = (props) => {
   return (
     <div className="bmr-form">
       <form className="bmr-format" onSubmit={handleSubmit}>
-        <h4>BMR Calculator</h4>
+        <h3 className="text-center">BMR Calculator</h3>
         <br />
         <div className="grid-x grid-margin-x">
           <label className="bmr-entry">
@@ -98,16 +98,16 @@ const UserInfoForm = (props) => {
           <input
             type="radio"
             name="sex"
-            value="female"
-            checked={userInfo.sex === "female"}
+            value="Female"
+            checked={userInfo.sex === "Female"}
             onChange={handleInputChange}
           />
           <label>Female</label>
           <input
             type="radio"
             name="sex"
-            value="male"
-            checked={userInfo.sex === "male"}
+            value="Male"
+            checked={userInfo.sex === "Male"}
             onChange={handleInputChange}
           />
           <label>Male</label>

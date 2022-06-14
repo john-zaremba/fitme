@@ -38,13 +38,15 @@ const UserProfilePage = (props) => {
 
   return (
     <div className="grid-container">
-      <ProfileSummary 
-        user={props.user}
-      />
-      <UserInfoForm 
-        user={props.user} 
-        patchUserInfo={patchUserInfo}
-      />
+      <div className="grid-x">
+        <ProfileSummary 
+          user={props.user}
+        />
+        <UserInfoForm 
+          user={props.user} 
+          patchUserInfo={patchUserInfo}
+        />
+      </div>
     </div>
   )
 }

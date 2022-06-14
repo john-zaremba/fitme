@@ -1,6 +1,9 @@
 .bmr-form {
   @extend .sign-form;
+  @extend .cell;
+  @extend .large-6;
   margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .bmr-format {
@@ -19,4 +22,14 @@
 
 .rounded {
   border-radius: 5px;
+}
+
+.profile-stat {
+  @extend .callout;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgb(204, 204, 204);
+  margin: 10px;
+  font-weight: bold;
+  font-size:large;
 }

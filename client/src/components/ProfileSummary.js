@@ -25,12 +25,13 @@ const ProfileSummary = (props) => {
   return (
     <div className="bmr-form">
       <div className="bmr-format">
-        <h3>Profile Summary</h3>
-        <p>Age: {user.age}</p>
-        <p>Height: {user.height} in</p>
-        <p>Weight: {user.weight} lbs</p>
-        <p>Sex: {user.sex}</p>
-        <p>Activity Level: {activityLevel}</p>
+        <h3 className="text-center">Profile Summary</h3><br />
+        <p className="profile-stat">Age: {user.age}</p>
+        <p className="profile-stat">Height: {user.height} in</p>
+        <p className="profile-stat">Weight: {user.weight} lbs</p>
+        <p className="profile-stat">Sex: {user.sex}</p>
+        <p className="profile-stat">Activity Level: {activityLevel}</p>
+        <p className="profile-stat">BMR: {(user.bmr).toLocaleString("en-US")} calories</p>
       </div>
     </div>
   )
