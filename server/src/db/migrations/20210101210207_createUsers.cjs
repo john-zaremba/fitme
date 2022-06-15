@@ -21,7 +21,7 @@ exports.up = async (knex) => {
       table.integer("height")
       table.integer("weight")
       table.integer("activityLevel")
-      table.string("gender")
+      table.string("sex")
       table
         .integer("bmr")
         .notNullable()

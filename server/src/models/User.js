@@ -50,7 +50,7 @@ class User extends uniqueFunc(Model) {
         height: { type: ["string", "integer"] },
         weight: { type: ["string", "integer"] },
         activityLevel: { type: ["string", "integer"] },
-        gender: { type: "string" },
+        sex: { type: "string" },
         bmr: { type: ["string", "integer"] }
       }
     }

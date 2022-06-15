@@ -37,14 +37,14 @@ const LogEntryTile = (props) => {
     event.preventDefault()
     const quantity = Number(newQuantity.quantity)
 
-    if (quantity % 1 === 0) {
+    if (quantity % 1 === 0 && quantity > 0) {
       setPatchErrors([])
       patchLogEntry(entryId, newQuantity)
       setNewQuantity({ quantity: "" })
       setEditing(false)
     } else {
       setPatchErrors(
-        "Please enter a whole number"
+        "Please enter a positive whole number"
       )
     }
   }
@@ -64,7 +64,8 @@ const LogEntryTile = (props) => {
     entryQuantity = (
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
+          className="rounded"
+          type="number"
           name="quantity"
           value={newQuantity.quantity}
           onChange={handleInputChange}

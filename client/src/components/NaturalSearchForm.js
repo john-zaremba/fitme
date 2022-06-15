@@ -46,6 +46,7 @@ const NaturalSearchForm = (props) => {
         <label>
           Easy Add:
           <input
+            className="rounded"
             type="text"
             name="entryQuery"
             value={newEntry.entryQuery}

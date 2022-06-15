@@ -1,29 +1,29 @@
-const getBMR = (gender, height, weight, age, activity) => {
+const getBMR = (sex, height, weight, age, activity) => {
   let BMR
   let activityMultiplier
 
   switch (activity) {
-    case 1:
+    case "1":
       activityMultiplier = 1.2
       break
-    case 2:
+    case "2":
       activityMultiplier = 1.375
       break
-    case 3:
+    case "3":
       activityMultiplier = 1.55
       break
-    case 4:
+    case "4":
       activityMultiplier = 1.725
       break
-    case 5:
+    case "5":
       activityMultiplier = 1.9
       break
   }
 
-  if (gender === "male") {
+  if (sex === "Male") {
     BMR = 66 + (13.7 * weight) + (5 * height) - (6.8 * age)
     return Math.round(BMR * activityMultiplier)
-  } else if (gender === "female") {
+  } else if (sex === "Female") {
     BMR = 655 + (9.6 * weight) + (1.8 * height) - (4.7 * age)
     return Math.round(BMR * activityMultiplier)
   }

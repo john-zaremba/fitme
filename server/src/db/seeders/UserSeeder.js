@@ -12,7 +12,7 @@ class UserSeeder {
         height: 185,
         weight: 75,
         activityLevel: 2,
-        gender: "male",
+        sex: "male",
         bmr: bmr
       },
       {

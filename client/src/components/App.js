@@ -11,6 +11,7 @@ import LogListPage from "./LogListPage"
 import LogShowPage from "./LogShowPage"
 import LandingPage from "./LandingPage"
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute.js"
+import UserProfilePage from "./UserProfilePage"
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -36,6 +37,7 @@ const App = (props) => {
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
+        <AuthenticatedRoute exact path="/users/profile" user={currentUser} setCurrentUser={setCurrentUser} component={UserProfilePage}/>
         <AuthenticatedRoute exact path="/logs" component={LogListPage} user={currentUser} />
         <AuthenticatedRoute exact path="/logs/:id" component={LogShowPage} user={currentUser} />
       </Switch>
