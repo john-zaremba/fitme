@@ -3,16 +3,16 @@ import getBMR from "../../services/getBMR.js"
 
 class UserSeeder {
   static async seed() {
-    const bmr = getBMR("male", 185, 75, 29, 2)
+    const bmr = getBMR("Male", 185, 75, 29, "2")
     const usersData = [
       {
         email: "hello@email.com",
         password: "world",
         age: 29,
         height: 185,
-        weight: 75,
+        weight: 165,
         activityLevel: 2,
-        sex: "male",
+        sex: "Male",
         bmr: bmr
       },
       {
