@@ -10,3 +10,10 @@
   color: #b50024;
   float: right;
 }
+
+.bmr-error {
+  @extend .cell;
+  @extend .small-4;
+  color: #b50024;
+  font-weight: bold;
+}

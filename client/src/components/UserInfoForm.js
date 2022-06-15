@@ -1,4 +1,7 @@
 import React, { useState } from "react"
+import ReactTooltip from "react-tooltip"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 
 const UserInfoForm = (props) => {
   const { patchUserInfo } = props
@@ -10,6 +13,22 @@ const UserInfoForm = (props) => {
     activityLevel: "",
     sex: ""
   })
+  const [errors, setErrors] = useState([])
+  let errorsList
+
+  if (errors.length > 0) {
+    errorsList = (
+      <div>
+        <p>
+          Please fill out required fields:
+        </p>
+        <div className="grid-x grid-margin-x">
+          {errors}
+          <br />
+        </div>
+      </div>
+    )
+  }
 
   const handleInputChange = (event) => {
     const target = event.currentTarget
@@ -30,22 +49,56 @@ const UserInfoForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    patchUserInfo(userInfo)
-    setUserInfo({
-      age: "",
-      feet: "",
-      inches: "",
-      weight: "",
-      activityLevel: "",
-      sex: ""
-    })
+    let completed = true
+    const errorsArray = []
+
+    for (const attribute in userInfo) {
+      if (userInfo[attribute] === "") {
+        completed = false
+        if (attribute === "activityLevel") {
+          errorsArray.push(<p className="bmr-error">activity level</p>)
+        } else {
+          errorsArray.push(<p className="bmr-error">{attribute}</p>)
+        }
+      }
+    }
+
+    console.log(errorsArray)
+    if (errorsArray.length > 0) {
+      setErrors(errorsArray)
+    }
+
+    if (completed) {
+      patchUserInfo(userInfo)
+      setErrors([])
+      setUserInfo({
+        age: "",
+        feet: "",
+        inches: "",
+        weight: "",
+        activityLevel: "",
+        sex: ""
+      })
+    }
   }
 
   return (
     <div className="bmr-form">
+      <div>
+        <FontAwesomeIcon className="tip-icon" icon={faQuestion} data-tip data-for="example" />
+        <ReactTooltip id="example" className="my-tip" place="left" effect="solid">
+          <h5>
+            Base Metabolic Rate (BMR) <br /> 
+          </h5>
+          <p>
+            This calculator uses the Harris-Benedict formula to estimate <br />how many calories you burn every 24 hours.
+          </p>
+        </ReactTooltip>
+      </div>
       <form className="bmr-format" onSubmit={handleSubmit}>
         <h3 className="text-center">BMR Calculator</h3>
         <br />
+        {errorsList}
         <div className="grid-x grid-margin-x">
           <label className="bmr-entry">
             Age
@@ -155,11 +208,13 @@ const UserInfoForm = (props) => {
           />
           <label>Extremely Active: exercise 2 times / day</label>
         </label><br />
+        
         <input
           type="submit"
           value="Calculate"
           className="my-button"
         />
+
       </form>
     </div>
   )
