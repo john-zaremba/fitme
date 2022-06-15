@@ -18,19 +18,12 @@ const UserProfilePage = (props) => {
       })
 
       if (!response.ok) {
-        if (response.status === 422) {
-          const body = await response.json()
-          const newErrors = translateServerErrors(body.errors)
-          return setErrors(newErrors)
-        } else {
-          const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
-          throw error
-        }
+        const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
+        throw error
       }
 
       const responseBody = await response.json()
       setCurrentUser(responseBody.user)
-      console.log(responseBody.user)
     } catch (error) {
       console.error(error.message)
     }

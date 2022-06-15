@@ -63,7 +63,6 @@ const UserInfoForm = (props) => {
       }
     }
 
-    console.log(errorsArray)
     if (errorsArray.length > 0) {
       setErrors(errorsArray)
     }
@@ -91,7 +90,8 @@ const UserInfoForm = (props) => {
             Base Metabolic Rate (BMR) <br /> 
           </h5>
           <p>
-            This calculator uses the Harris-Benedict formula to estimate <br />how many calories you burn every 24 hours.
+            This calculator uses the Harris-Benedict formula to estimate <br />
+            how many calories you burn every 24 hours.
           </p>
         </ReactTooltip>
       </div>
@@ -208,13 +208,11 @@ const UserInfoForm = (props) => {
           />
           <label>Extremely Active: exercise 2 times / day</label>
         </label><br />
-        
         <input
           type="submit"
           value="Calculate"
           className="my-button"
         />
-
       </form>
     </div>
   )
