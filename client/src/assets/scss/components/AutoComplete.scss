@@ -1,0 +1,69 @@
+$list-group-background: $white;
+$list-group-active-background: smart-scale(rgb(238, 255, 238), $table-hover-scale);
+$list-group-hover-background: smart-scale(rgb(238, 255, 238), $table-hover-scale);
+$list-group-disabled-background: $white;
+$list-group-font-color: $body-font-color;
+$list-group-font-disabled-color: $dark-gray;
+$list-group-font-active-color: $white;
+$list-group-border: 1px solid $light-gray;
+$list-group-active-border: 1px solid $primary-color;
+$list-group-shadow: none;
+$list-group-border-radius: $global-radius;
+$list-group-margin: $global-margin;
+
+.list-group {
+  margin-top: 0;
+  margin-bottom: $list-group-margin;
+  border: $list-group-border;
+  border-radius: $list-group-border-radius;
+  background: $list-group-background;
+  box-shadow: 0 0 5px rgb(193, 193, 193);
+  overflow: hidden;
+  color: $list-group-font-color;
+  & > :last-child {
+    margin-bottom: 0;
+  }
+  position: absolute;
+  z-index: 1;
+  width: 85%;
+}
+
+.list-group-item {
+  padding: 10px;
+  border-bottom: $list-group-border;
+  z-index: 1;
+
+  & > :last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  &.active {
+    color: $list-group-font-active-color;
+    background-color: $list-group-active-background;
+    border-color: $list-group-active-border;
+  }
+
+  &:hover, &:focus {
+    background-color: $list-group-hover-background;
+    transition-timing-function: ease;
+    transition: .25s;
+    &.active {
+      background-color: $list-group-active-background;
+    }
+  }
+
+  &.disabled,
+  &[disabled] {
+    &,
+    &:hover, &:focus {
+      color: $list-group-font-disabled-color;
+      cursor: not-allowed;
+      background-color: $list-group-disabled-background;
+    }
+  }
+}
+
+.my-input {
+  margin-bottom: 0;
+}

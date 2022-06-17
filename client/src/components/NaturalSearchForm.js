@@ -2,25 +2,57 @@ import React, { useState } from "react"
 import ReactTooltip from "react-tooltip"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
+import { useClickOutside } from "../services/useClickOutside"
 
 const NaturalSearchForm = (props) => {
   const { postLogEntry, date, errorContainer } = props
   const [newEntry, setNewEntry] = useState({ entryQuery: "" })
   const [suggestions, setSuggestions] = useState([])
+  const autoRef = useClickOutside(() => setSuggestions([]))
   let suggestionsList
 
-  if (suggestions.length > 0) {
-    const suggestionElements = suggestions.map((suggestion, index) => {
-      return (
-        <p key={index}>
-          {suggestion}
-        </p>
-      )
-    })
+  const handleAutoClick = (event) => {
+    const entryArray = newEntry.entryQuery.split("")
+    const text = event.currentTarget.innerText
+
+    if (entryArray[entryArray.length - 1] === " ") {
+      entryArray.push(text)
+      let replacementText = ""
+      entryArray.forEach((entry) => {
+        replacementText += entry
+      })
+
+      setNewEntry({
+        ...newEntry,
+        entryQuery: replacementText
+      })
+      setSuggestions([])
+    } else {
+      const newArray = entryArray.join("").split(" ")
+      newArray.splice(newArray.length - 1, 1, text)
+      const replacementText = newArray.join(" ")
+      
+      setNewEntry({
+        ...newEntry,
+        entryQuery: replacementText
+      })
+      setSuggestions([])
+    }
+  }
+
+  const suggestionElements = suggestions.map((suggestion, index) => {
+    return (
+      <li key={index} className="list-group-item" onClick={handleAutoClick}>
+        {suggestion}
+      </li>
+    )
+  })
+
+  if (suggestions.length > 0 && newEntry.entryQuery !== "") {
     suggestionsList = (
-      <div>
+      <ul className="list-group" ref={autoRef}>
         {suggestionElements}
-      </div>
+      </ul>
     )
   }
 
@@ -95,7 +127,7 @@ const NaturalSearchForm = (props) => {
         <label>
           Easy Add:
           <input
-            className="rounded"
+            className="my-input rounded"
             type="text"
             spellCheck="true"
             name="entryQuery"
