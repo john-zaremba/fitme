@@ -10,6 +10,7 @@
 @import "./components/Error.scss";
 @import "./components/ToolTip.scss";
 @import "./components/UserProfile.scss";
+@import "./components/AutoComplete.scss";
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 // place global css here
 *,
@@ -44,4 +45,3 @@ body {
 .grid-container {
   margin-top: 100px;
 }
-
