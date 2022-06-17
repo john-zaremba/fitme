@@ -16,7 +16,7 @@ class TypewiseAIClient {
         },
         json: {
           "text": query,
-          "correctTypoInPartialWord": false,
+          "correctTypoInPartialWord": true,
           "language": "en"
         }
       })
