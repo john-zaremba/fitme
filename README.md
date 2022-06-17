@@ -25,6 +25,7 @@ password: world
 ## Featured Third-Party API Integration
 
 * Nutritionix API
+* Typewise AI API
 * Google Charts API
 
 ## Author  
