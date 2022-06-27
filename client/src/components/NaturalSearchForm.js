@@ -5,7 +5,7 @@ import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { useClickOutside } from "../services/useClickOutside"
 
 const NaturalSearchForm = (props) => {
-  const { postLogEntry, date, errorContainer } = props
+  const { handlePost, date, errorContainer, id } = props
   const [newEntry, setNewEntry] = useState({ entryQuery: "" })
   const [suggestions, setSuggestions] = useState([])
   const autoRef = useClickOutside(() => setSuggestions([]))
@@ -97,7 +97,7 @@ const NaturalSearchForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    postLogEntry(newEntry)
+    handlePost(id, newEntry)
     clearForm()
   }
  
