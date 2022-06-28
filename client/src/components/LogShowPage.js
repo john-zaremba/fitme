@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import LogEntryTile from "./LogEntryTile"
-import translateServerErrors from "../services/translateServerErrors"
 import NaturalSearchForm from "./NaturalSearchForm"
 import SummaryChart from "./SummaryChart"
 import CalorieChart from "./CalorieChart"
 import getLogEntries from "../services/getLogEntries"
 import postLogEntry from "../services/postLogEntry"
+import deleteLogEntry from "../services/deleteLogEntry"
+import patchLogEntry from "../services/patchLogEntry"
 
 const LogShowPage = (props) => {
   const [log, setLog] = useState({
@@ -45,7 +46,6 @@ const LogShowPage = (props) => {
         setErrors(log.errors)
       } else {
         const { entries, total, macros } = log
-
         setErrors([])
         setLog({
           ...log,
@@ -58,24 +58,10 @@ const LogShowPage = (props) => {
       console.error(error)
     }
   }
-  
-  const deleteLogEntry = async (entryId) => {
+
+  const handleDelete = async (entryId) => {
     try {
-      const response = await fetch(`/api/v1/entries/${entryId}`, {
-        method: "DELETE",
-        headers: new Headers({
-          "Content-Type": "application/json"
-        })
-      })
-
-      if (!response.ok) {
-        const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
-        throw error       
-      }
-
-      const responseBody = await response.json()
-      const { entries, total, macros } = responseBody.log
-     
+      const { entries, total, macros } = await deleteLogEntry(entryId)
       setLog({
         ...log,
         entries,
@@ -83,35 +69,13 @@ const LogShowPage = (props) => {
         macros
       })
     } catch (error) {
-      console.error(error.message)
+      console.error(error)
     }
   }
 
-  const patchLogEntry = async (entryId, patchData) => {
+  const handlePatch = async (entryId, patchData) => {
     try {
-      const response = await fetch(`/api/v1/entries/${entryId}`, {
-        method: "PATCH",
-        headers: new Headers({
-          "Content-Type": "application/json"
-        }),
-        body: JSON.stringify(patchData)
-      })
-
-      if (!response.ok) {
-        if (response.status === 422) {
-          const body = await response.json()
-          const newErrors = translateServerErrors(body.errors)
-          return setErrors(newErrors)
-        } else {
-          const error = new Error(`Error in fetch: ${error.status} (${error.statusText})`)
-          throw error       
-        }
-      }
-
-      const responseBody = await response.json()
-      const { entries, total, macros } = responseBody.log
-
-      setErrors([])
+      const {entries, total, macros } = await patchLogEntry(entryId, patchData)
       setLog({
         ...log,
         entries,
@@ -119,7 +83,7 @@ const LogShowPage = (props) => {
         macros
       })
     } catch (error) {
-      console.error(error.message)
+      console.error(error)
     }
   }
 
@@ -132,8 +96,8 @@ const LogShowPage = (props) => {
       <LogEntryTile 
         key={entry.entryId}
         entry={entry}
-        deleteLogEntry={deleteLogEntry}
-        patchLogEntry={patchLogEntry}
+        handleDelete={handleDelete}
+        handlePatch={handlePatch}
       />
     )
   })
