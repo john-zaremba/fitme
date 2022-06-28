@@ -4,7 +4,7 @@ import { faPenToSquare, faTrash, faCheck, faX } from '@fortawesome/free-solid-sv
 
 const LogEntryTile = (props) => {
   const { entryId, name, unit, quantity, calories, fat, protein, carbs } = props.entry
-  const { deleteLogEntry, patchLogEntry } = props
+  const { handlePatch, handleDelete } = props
   const [editing, setEditing] = useState(false)
   const [newQuantity, setNewQuantity] = useState({ quantity: "" })
   const [patchErrors, setPatchErrors] = useState([])
@@ -22,8 +22,8 @@ const LogEntryTile = (props) => {
     )
   }
 
-  const handleDelete = () => {
-    deleteLogEntry(entryId)
+  const handleDeleteClick = () => {
+    handleDelete(entryId)
   }
   
   const handleInputChange = (event) => {
@@ -39,7 +39,7 @@ const LogEntryTile = (props) => {
 
     if (quantity % 1 === 0 && quantity > 0) {
       setPatchErrors([])
-      patchLogEntry(entryId, newQuantity)
+      handlePatch(entryId, newQuantity)
       setNewQuantity({ quantity: "" })
       setEditing(false)
     } else {
@@ -88,7 +88,7 @@ const LogEntryTile = (props) => {
       <FontAwesomeIcon 
         className="my-icon" 
         icon={faTrash} 
-        onClick={handleDelete} 
+        onClick={handleDeleteClick} 
       />
     )
     buttonCollection = <td width="5%">{leftButton}{rightButton}</td>
