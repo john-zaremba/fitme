@@ -32,9 +32,10 @@ const SummaryChart = (props) => {
     ["Carbs", parseInt(total.carbs), "#37412a", null]
   ]
   const barOptions = {
-    width: 480,
+    width: 300,
     height: 200,
-    bar: { groupWidth: "95%"},
+    chartArea: { width: "70%" },
+    bar: { groupWidth: "95%" },
     legend: { position: "none" }
   }
 
@@ -45,6 +46,7 @@ const SummaryChart = (props) => {
         <Chart 
           chartType="BarChart"
           width="100%"
+          height="200px"
           data={barData}
           options={barOptions}
         />
