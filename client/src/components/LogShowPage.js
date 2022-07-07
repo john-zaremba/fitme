@@ -122,7 +122,7 @@ const LogShowPage = (props) => {
         />
       </div>
       <SummaryChart log={log} />
-      <div className="table-wrapper">
+      <div className="table-wrapper table-scroll">
         <table className="entry-table">
           <thead>
             <tr>

@@ -2,7 +2,10 @@
   @extend .callout;
   @extend .cell;
   @extend .large-6;
+  @extend .medium-12;
   width: 250px;
+  max-width: 500px;
+  position: center;
   border-radius: 5px;
   box-shadow: inset 0 0 10px rgb(193, 193, 193);
 }

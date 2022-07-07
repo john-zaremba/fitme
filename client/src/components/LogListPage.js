@@ -62,11 +62,13 @@ const LogListPage = (props) => {
   return (
     <div className="grid-container">
       <div className="log-list-container">
-        <h3 className="text-center">
+        <div className="grid-x grid-margin-x">
+        <h2 className="text-center cell large-3">
           My Logs
-        </h3>
-        <div className="log-button" onClick={postLog}>
+        </h2>
+        <div className="log-button cell large-3" onClick={postLog}>
           Log My Day
+        </div>
         </div>
         <div className="log-list">
           {logsList}

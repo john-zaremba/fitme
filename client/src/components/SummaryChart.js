@@ -32,7 +32,7 @@ const SummaryChart = (props) => {
     ["Carbs", parseInt(total.carbs), "#37412a", null]
   ]
   const barOptions = {
-    width: 300,
+    width: "90%",
     height: 200,
     chartArea: { width: "70%" },
     bar: { groupWidth: "95%" },

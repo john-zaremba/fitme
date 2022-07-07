@@ -10,7 +10,7 @@ const LogTile = (props) => {
           <thead>
             <tr>
               <th>Date</th>
-              <th>Total Calories</th>
+              <th>Calories</th>
             </tr>
           </thead>
           <tbody>
