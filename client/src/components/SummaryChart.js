@@ -40,7 +40,7 @@ const SummaryChart = (props) => {
   }
 
   return (
-    <div className="grid-x grid-margin-x">
+    <div className="grid-x grid-margin-x align-center">
       <div className="form">
         <h5>Nutrient Totals</h5>
         <Chart 

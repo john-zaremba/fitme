@@ -108,7 +108,7 @@ const LogShowPage = (props) => {
   
   return (
     <div className="grid-container">
-      <div className="grid-x grid-margin-x">
+      <div className="grid-x grid-margin-x align-center">
         <NaturalSearchForm 
           handlePost={handlePost}
           date={log.date}
@@ -116,31 +116,33 @@ const LogShowPage = (props) => {
           id={id}
           errorContainer={errorContainer}
         />
+      </div>
+      <div className="grid-x grid-margin-x align-center">
+        <div className="table-wrapper table-scroll">
+          <table className="entry-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+                {/* <th>Calories</th> */}
+                {/* <th>Fat</th> */}
+                {/* <th>Protein</th> */}
+                {/* <th>Carbs</th> */}
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {logEntriesList}
+            </tbody>
+          </table>
+        </div>
         <CalorieChart 
           user={props.user} 
           total={log.total} 
         />
       </div>
       <SummaryChart log={log} />
-      <div className="table-wrapper table-scroll">
-        <table className="entry-table">
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Unit</th>
-              <th>Quantity</th>
-              <th>Calories</th>
-              <th>Fat</th>
-              <th>Protein</th>
-              <th>Carbs</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {logEntriesList}
-          </tbody>
-        </table>
-      </div>
     </div>
   )
 }

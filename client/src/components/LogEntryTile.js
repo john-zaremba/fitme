@@ -112,13 +112,13 @@ const LogEntryTile = (props) => {
   
   return (
     <tr>
-      <td>{name}</td>
-      <td width="25%">{unit}</td>
-      <td width="10%">{entryQuantity}</td>
-      <td>{calories}</td>
-      <td>{fat}g</td>
-      <td>{protein}g</td>
-      <td>{carbs}g</td>
+      <td width="25%">{name}</td>
+      <td width="40%">{unit}</td>
+      <td width="5%">{entryQuantity}</td>
+      {/* <td>{calories}</td> */}
+      {/* <td>{fat}g</td> */}
+      {/* <td>{protein}g</td> */}
+      {/* <td>{carbs}g</td> */}
       {buttonCollection}
       {errorContainer} 
     </tr>
