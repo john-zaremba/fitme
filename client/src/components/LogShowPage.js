@@ -118,24 +118,26 @@ const LogShowPage = (props) => {
         />
       </div>
       <div className="grid-x grid-margin-x align-center">
-        <div className="table-wrapper table-scroll">
-          <table className="entry-table">
-            <thead>
-              <tr>
-                <th>Description</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-                {/* <th>Calories</th> */}
-                {/* <th>Fat</th> */}
-                {/* <th>Protein</th> */}
-                {/* <th>Carbs</th> */}
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {logEntriesList}
-            </tbody>
-          </table>
+        <div className="table-container">
+          <div className="table-wrapper table-scroll">
+            <table className="entry-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th></th>
+                  <th>Qty</th>
+                  {/* <th>Calories</th> */}
+                  {/* <th>Fat</th> */}
+                  {/* <th>Protein</th> */}
+                  {/* <th>Carbs</th> */}
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {logEntriesList}
+              </tbody>
+            </table>
+          </div>
         </div>
         <CalorieChart 
           user={props.user} 

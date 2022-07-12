@@ -64,7 +64,7 @@ const LogEntryTile = (props) => {
     entryQuantity = (
       <form onSubmit={handleSubmit}>
         <input
-          className="rounded"
+          className="table-element"
           type="number"
           name="quantity"
           value={newQuantity.quantity}
@@ -91,7 +91,7 @@ const LogEntryTile = (props) => {
         onClick={handleDeleteClick} 
       />
     )
-    buttonCollection = <td width="5%">{leftButton}{rightButton}</td>
+    buttonCollection = <td width="1%">{leftButton}{rightButton}</td>
   } else if (editing) {
     leftButton = (
       <FontAwesomeIcon 
@@ -112,7 +112,7 @@ const LogEntryTile = (props) => {
   
   return (
     <tr>
-      <td width="25%">{name}</td>
+      <td width="10%">{name}</td>
       <td width="40%">{unit}</td>
       <td width="5%">{entryQuantity}</td>
       {/* <td>{calories}</td> */}
