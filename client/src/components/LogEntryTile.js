@@ -4,7 +4,7 @@ import { faPenToSquare, faTrash, faCheck, faX } from '@fortawesome/free-solid-sv
 
 const LogEntryTile = (props) => {
   const { entryId, name, unit, quantity, calories, fat, protein, carbs } = props.entry
-  const { handlePatch, handleDelete } = props
+  const { handlePatch, handleDelete, showDetail, setShowDetail, setEntryDetails } = props
   const [editing, setEditing] = useState(false)
   const [newQuantity, setNewQuantity] = useState({ quantity: "" })
   const [patchErrors, setPatchErrors] = useState([])
@@ -13,6 +13,7 @@ const LogEntryTile = (props) => {
   let entryQuantity
   let buttonCollection
   let errorContainer
+  let entryDetail
 
   if (patchErrors.length > 0) {
     errorContainer = (
@@ -20,6 +21,16 @@ const LogEntryTile = (props) => {
         {patchErrors}
       </td>
     )
+  }
+
+  const handleEntryClick = () => {
+    setShowDetail(!showDetail)
+    setEntryDetails({
+      calories,
+      fat,
+      protein,
+      carbs
+    })
   }
 
   const handleDeleteClick = () => {
@@ -111,16 +122,17 @@ const LogEntryTile = (props) => {
   } 
   
   return (
-    <tr>
-      <td width="10%">{name}</td>
-      <td width="40%">{unit}</td>
-      <td width="5%">{entryQuantity}</td>
-      {/* <td>{calories}</td> */}
-      {/* <td>{fat}g</td> */}
-      {/* <td>{protein}g</td> */}
-      {/* <td>{carbs}g</td> */}
-      {buttonCollection}
-      {errorContainer} 
+    <tr id={entryId} className="entry-tile" onClick={handleEntryClick}>
+        {entryDetail}
+        <td width="10%">{name}</td>
+        <td width="40%">{unit}</td>
+        <td width="5%">{entryQuantity}</td>
+        {/* <td>{calories}</td> */}
+        {/* <td>{fat}g</td> */}
+        {/* <td>{protein}g</td> */}
+        {/* <td>{carbs}g</td> */}
+        {buttonCollection}
+        {errorContainer} 
     </tr>
   )
 }
