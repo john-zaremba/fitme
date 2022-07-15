@@ -122,15 +122,11 @@ const LogEntryTile = (props) => {
   } 
   
   return (
-    <tr id={entryId} className="entry-tile" onClick={handleEntryClick}>
+    <tr id={entryId} className="entry-tile">
         {entryDetail}
-        <td width="10%">{name}</td>
-        <td width="40%">{unit}</td>
+        <td width="10%" onClick={handleEntryClick}>{name}</td>
+        <td width="40%" onClick={handleEntryClick}>{unit}</td>
         <td width="5%">{entryQuantity}</td>
-        {/* <td>{calories}</td> */}
-        {/* <td>{fat}g</td> */}
-        {/* <td>{protein}g</td> */}
-        {/* <td>{carbs}g</td> */}
         {buttonCollection}
         {errorContainer} 
     </tr>

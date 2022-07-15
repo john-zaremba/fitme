@@ -56,12 +56,34 @@
   background-color: rgb(174, 230, 169);
 }
 
-.entry-detail {
+.entry-detail-container {
   @extend .callout;
   box-shadow: 0 0 5px rgb(208, 208, 208);
   border-radius: 5px;
   min-width: 200px;
   position: absolute;
+  left: 100px;
+  top: 30px;
+}
+
+.detail-margin {
+  margin-top: 15px;
+}
+
+.detail {
+  border-bottom: solid rgb(227, 227, 227);
+}
+
+.detail-icon {
+  @extend .float-right;
+  margin-top: 10px;
+  height: 15px;
+  width: 15px;
+  transition: color .25s;
+
+  &:hover {
+    color:rgb(110, 110, 110);
+  }
 }
 
 .table-element {

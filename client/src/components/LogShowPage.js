@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faX } from '@fortawesome/free-solid-svg-icons'
 import LogEntryTile from "./LogEntryTile"
 import NaturalSearchForm from "./NaturalSearchForm"
 import SummaryChart from "./SummaryChart"
@@ -33,13 +35,24 @@ const LogShowPage = (props) => {
     )
   }
 
+  const handleExitClick = () => {
+    setShowDetail(false)
+  }
+
   if (showDetail) {
     entryDetailDisplay = (
-      <div className="entry-detail">
-        <p>Calories: {entryDetails.calories}</p>
-        <p>Fat: {entryDetails.fat} g</p>
-        <p>Protein: {entryDetails.protein} g</p>
-        <p>Carbs: {entryDetails.carbs} g</p>
+      <div className="entry-detail-container">
+        <FontAwesomeIcon
+          className="detail-icon"
+          icon={faX}
+          onClick={handleExitClick}
+        />
+        <div className="detail-margin">
+          <p className="detail"><strong>Calories: </strong>{entryDetails.calories.toLocaleString("en-us")}</p>
+          <p className="detail"><strong>Fat: </strong>{entryDetails.fat} g</p>
+          <p className="detail"><strong>Protein: </strong>{entryDetails.protein} g</p>
+          <p className="detail"><strong>Carbs: </strong> {entryDetails.carbs} g</p>
+        </div>
       </div>
     )
   }
@@ -144,10 +157,6 @@ const LogShowPage = (props) => {
                   <th>Item</th>
                   <th></th>
                   <th>Qty</th>
-                  {/* <th>Calories</th> */}
-                  {/* <th>Fat</th> */}
-                  {/* <th>Protein</th> */}
-                  {/* <th>Carbs</th> */}
                   <th></th>
                 </tr>
               </thead>
