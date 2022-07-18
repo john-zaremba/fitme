@@ -14,6 +14,7 @@
   @extend .cell;
   @extend .small-3;
   font-weight: bold;
+  min-width: 70px;
 }
 
 .bmr-label {
@@ -26,10 +27,12 @@
 
 .profile-stat {
   @extend .callout;
+  @extend .align-center;
+  max-width: 300px;
   border: none;
   border-radius: 5px;
   box-shadow: 0 0 5px rgb(204, 204, 204);
   margin: 10px;
   font-weight: bold;
-  font-size:large;
+  font-size:medium;
 }

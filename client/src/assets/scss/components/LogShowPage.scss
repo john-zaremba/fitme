@@ -2,23 +2,21 @@
   @extend .callout;
   @extend .cell;
   @extend .large-6;
+  @extend .small-12;
   width: 250px;
+  max-width: 500px;
+  position: center;
   border-radius: 5px;
   box-shadow: inset 0 0 10px rgb(193, 193, 193);
 }
 
 .sign-form {
   @extend .callout;
-  margin: auto;
   max-width: 500px;
+  margin: auto;
   margin-top: 30vh;
   border-radius: 5px;
   box-shadow: inset 0 0 10px rgb(193, 193, 193);
-}
-
-.entry-table {
-  box-shadow: 0 0 5px rgb(208, 208, 208);
-  border-radius: 5px;
 }
 
 .my-icon {
@@ -29,10 +27,68 @@
   color: rgb(110, 110, 110);
 }
 
+.table-container {
+  @extend .form;
+  padding: 5px;
+}
+
 .table-wrapper {
-  @extend .callout;
+  @extend .align-center;
+  @extend .large-6;
+  @extend .cell;
+  overflow: scroll;
+  max-height: 250px;
+  max-width: 500px;
   border-radius: 5px;
-  box-shadow: inset 0 0 10px rgb(193, 193, 193);
+}
+
+.entry-table {
+  box-shadow: 0 0 5px rgb(208, 208, 208);
+  border-radius: 5px;
+  max-width: 500px;
+}
+
+.entry-tile {
+  transition: background-color .25s;
+}
+
+.entry-tile:hover {
+  background-color: rgb(174, 230, 169);
+}
+
+.entry-detail-container {
+  @extend .callout;
+  box-shadow: 0 0 5px rgb(208, 208, 208);
+  border-radius: 5px;
+  min-width: 200px;
+  position: absolute;
+  left: 100px;
+  top: 30px;
+}
+
+.detail-margin {
+  margin-top: 15px;
+}
+
+.detail {
+  border-bottom: solid rgb(227, 227, 227);
+}
+
+.detail-icon {
+  @extend .float-right;
+  margin-top: 10px;
+  height: 15px;
+  width: 15px;
+  transition: color .25s;
+
+  &:hover {
+    color:rgb(110, 110, 110);
+  }
+}
+
+.table-element {
+  min-width: 40px;
+  border-radius: 5px;
 }
 
 .reference {

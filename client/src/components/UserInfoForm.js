@@ -166,7 +166,7 @@ const UserInfoForm = (props) => {
           <label>Male</label>
         </label>
         <label className="bmr-entry">
-          Activity Level <br />
+          Weekly Exercise <br />
           <input
             type="radio"
             name="activityLevel"
@@ -174,7 +174,7 @@ const UserInfoForm = (props) => {
             checked={userInfo.activityLevel === "1"}
             onChange={handleInputChange}
           />
-          <label>Sedentary: little or no exercise</label><br />
+          <label>Little to none</label><br />
           <input
             type="radio"
             name="activityLevel"
@@ -182,7 +182,7 @@ const UserInfoForm = (props) => {
             checked={userInfo.activityLevel === "2"}
             onChange={handleInputChange}
           />
-          <label>Lightly Active: exercise 1-3 days / week</label><br />
+          <label>1 - 3 days</label><br />
           <input
             type="radio"
             name="activityLevel"
@@ -190,7 +190,7 @@ const UserInfoForm = (props) => {
             checked={userInfo.activityLevel === "3"}
             onChange={handleInputChange}
           />
-          <label>Moderately Active: exercise 3-5 days / week</label><br />
+          <label>3 - 5 days</label><br />
           <input
             type="radio"
             name="activityLevel"
@@ -198,7 +198,7 @@ const UserInfoForm = (props) => {
             checked={userInfo.activityLevel === "4"}
             onChange={handleInputChange}
           />
-          <label>Vigorously Active: exercise 6-7 days / week</label><br />
+          <label>6 - 7 days</label><br />
           <input
             type="radio"
             name="activityLevel"
@@ -206,7 +206,7 @@ const UserInfoForm = (props) => {
             checked={userInfo.activityLevel === "5"}
             onChange={handleInputChange}
           />
-          <label>Extremely Active: exercise 2 times / day</label>
+          <label>2 times per day</label>
         </label><br />
         <input
           type="submit"

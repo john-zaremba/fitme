@@ -4,7 +4,7 @@ import { faPenToSquare, faTrash, faCheck, faX } from '@fortawesome/free-solid-sv
 
 const LogEntryTile = (props) => {
   const { entryId, name, unit, quantity, calories, fat, protein, carbs } = props.entry
-  const { handlePatch, handleDelete } = props
+  const { handlePatch, handleDelete, showDetail, setShowDetail, setEntryDetails } = props
   const [editing, setEditing] = useState(false)
   const [newQuantity, setNewQuantity] = useState({ quantity: "" })
   const [patchErrors, setPatchErrors] = useState([])
@@ -13,6 +13,7 @@ const LogEntryTile = (props) => {
   let entryQuantity
   let buttonCollection
   let errorContainer
+  let entryDetail
 
   if (patchErrors.length > 0) {
     errorContainer = (
@@ -20,6 +21,16 @@ const LogEntryTile = (props) => {
         {patchErrors}
       </td>
     )
+  }
+
+  const handleEntryClick = () => {
+    setShowDetail(!showDetail)
+    setEntryDetails({
+      calories,
+      fat,
+      protein,
+      carbs
+    })
   }
 
   const handleDeleteClick = () => {
@@ -64,7 +75,7 @@ const LogEntryTile = (props) => {
     entryQuantity = (
       <form onSubmit={handleSubmit}>
         <input
-          className="rounded"
+          className="table-element"
           type="number"
           name="quantity"
           value={newQuantity.quantity}
@@ -91,7 +102,7 @@ const LogEntryTile = (props) => {
         onClick={handleDeleteClick} 
       />
     )
-    buttonCollection = <td width="5%">{leftButton}{rightButton}</td>
+    buttonCollection = <td width="1%">{leftButton}{rightButton}</td>
   } else if (editing) {
     leftButton = (
       <FontAwesomeIcon 
@@ -111,16 +122,13 @@ const LogEntryTile = (props) => {
   } 
   
   return (
-    <tr>
-      <td>{name}</td>
-      <td width="25%">{unit}</td>
-      <td width="10%">{entryQuantity}</td>
-      <td>{calories}</td>
-      <td>{fat}g</td>
-      <td>{protein}g</td>
-      <td>{carbs}g</td>
-      {buttonCollection}
-      {errorContainer} 
+    <tr id={entryId} className="entry-tile">
+        {entryDetail}
+        <td width="10%" onClick={handleEntryClick}>{name}</td>
+        <td width="40%" onClick={handleEntryClick}>{unit}</td>
+        <td width="5%">{entryQuantity}</td>
+        {buttonCollection}
+        {errorContainer} 
     </tr>
   )
 }

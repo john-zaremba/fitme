@@ -8,5 +8,6 @@
 
 .log-button {
   @extend .my-button;
+  max-width: 300px;
   margin-bottom: 15px;
 }
