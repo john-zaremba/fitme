@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const LandingPage = (props) => {
   const { user } = props
-  const url = user ? "/logs" : "/users/new"
+  const url = user ? "/logs" : "/user-sessions/new"
 
   return (
     <div className="grid-container">
