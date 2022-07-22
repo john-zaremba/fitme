@@ -1,0 +1,50 @@
+ul.dropdown {
+  background-color: white;
+}
+
+.dropdown {
+  @extend .callout;
+  @extend .grid-y;
+  box-shadow: 0 0 5px rgb(193, 193, 193);
+  position: absolute;
+  top: 55px;
+  width: 200px;
+  transform: translateX(-80%);
+  border-radius: 5px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.menu-item {
+  @extend .text-left;
+  color: black;
+  margin: 0;
+  padding: 10px;
+  transition: background-color .25s;
+}
+
+.menu-item:hover {
+  color: black;
+  background-color: rgb(174, 230, 169);
+}
+
+.menu-icon {
+  height: 20px;
+  width: 20px;
+  margin: 0;
+  padding: 10px;
+  transition: background-color .25s;
+  border-radius: 5px;
+}
+
+.menu-icon:hover {
+  background-color: rgb(211, 211, 211);
+}
+
+.menu-item-icon {
+  color: rgb(29, 31, 29);
+  height: 20px;
+  width: 20px;
+  margin: 0;
+  margin-right: 5px;
+}

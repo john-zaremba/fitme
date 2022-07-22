@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+
 
 const SignOutButton = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -31,9 +34,9 @@ const SignOutButton = () => {
   }
 
   return (
-    <button type="button" className="my-button" onClick={signOut}>
-      Sign Out
-    </button>
+    <p className="menu-item" onClick={signOut}>
+      <FontAwesomeIcon className="menu-item-icon" icon={faRightToBracket} /> Sign Out
+    </p>
   );
 };
 

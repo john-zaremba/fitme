@@ -90,8 +90,9 @@ const UserInfoForm = (props) => {
             Base Metabolic Rate (BMR) <br /> 
           </h5>
           <p>
-            This calculator uses the Harris-Benedict formula to estimate <br />
-            how many calories you burn every 24 hours.
+            This calculator uses the Harris-Benedict <br />
+            formula to estimate how many calories <br /> 
+            you burn every 24 hours.
           </p>
         </ReactTooltip>
       </div>

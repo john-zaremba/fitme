@@ -11,12 +11,14 @@
 @import "./components/ToolTip.scss";
 @import "./components/UserProfile.scss";
 @import "./components/AutoComplete.scss";
+@import "./components/Dropdown.scss";
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 // place global css here
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  list-style: none;
 }
 
 :root {
