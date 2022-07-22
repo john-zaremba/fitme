@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import SignOutButton from "../authentication/SignOutButton";
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import SignOutButton from "../authentication/SignOutButton"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faUser, faBook, faRightToBracket, faCheckToSlot } from '@fortawesome/free-solid-svg-icons'
+import { useClickOutside } from "../../services/useClickOutside"
 
 const TopBar = ({ user }) => {
   const [open, setOpen] = useState(false)
   const handleMenuClick = () => {
     setOpen(!open)
   }
+  const menuRef = useClickOutside(() => setOpen(false))
 
   const unauthenticatedListItems = [
     <Link 
@@ -61,12 +63,14 @@ const TopBar = ({ user }) => {
         </ul>
       </div>
       <div className="top-bar-right">
-        <FontAwesomeIcon
-          className="menu-icon"
-          icon={faBars}
-          onClick={handleMenuClick}
-        />
-        {open && dropdownMenu}
+        <div ref={menuRef}>
+          <FontAwesomeIcon
+            className="menu-icon"
+            icon={faBars}
+            onClick={handleMenuClick}
+          />
+          {open && dropdownMenu}
+        </div>
       </div>
     </div>
   );
